@@ -1,0 +1,46 @@
+$header_gray: #687074;
+
+header{
+    height: 80px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    .logo{
+        margin-left: 20px;
+        height: 80px;
+        width: 272px;
+    }
+    .div{
+        width: calc(100% - 272px);
+        display: flex;
+        flex-direction: column;
+        .signup{
+            height: 20px;
+            margin-right: 20px;
+            margin-top: 10px;
+            display: flex;
+            span{
+                width: 100px;
+                text-align: center;
+                &:last-child{
+                    border-left: 1px solid $header_gray;
+                }
+            }
+        }
+        ul{
+            margin-left: 20px;
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;
+            line-height: 100px;
+            li{
+                width: 100px;
+                height: 30px;
+                font-size: 14px;
+                color: $header_gray;
+            }
+        }
+    }
+}
