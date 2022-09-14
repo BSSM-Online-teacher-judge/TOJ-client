@@ -13,19 +13,16 @@ function Header() {
       <div className={classNames("header div")}>
         <div className={classNames("header signup")}>
           <span>회원가입</span>
+          <span className={classNames("header signup line")}></span>
           <span>로그인</span>
         </div>
-        <ul>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-          <li>문자</li>
-        </ul>
+        <div className={classNames('header div category')}>
+          <span>단계별로 평가하기</span>
+          <span>이달의 선생님</span>
+          <span>랭킹</span>
+          <span>월간 평가</span>
+          <span>질문 추천</span>
+        </div>
       </div>
     </header>
   );
