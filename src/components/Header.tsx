@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import "../styles/Header.scss";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -16,12 +17,25 @@ function Header() {
           <span className={classNames("header signup line")}></span>
           <span>로그인</span>
         </div>
-        <div className={classNames('header div category')}>
-          <span>단계별로 평가하기</span>
-          <span>이달의 선생님</span>
-          <span>랭킹</span>
-          <span>월간 평가</span>
-          <span>질문 추천</span>
+        <div className={classNames("header div category")}>
+          <Link to={"/"} className={classNames("header div category item")}>
+            단계별로 평가하기
+          </Link>
+          <Link to={"/"} className={classNames("header div category item")}>
+            이달의 선생님
+          </Link>
+          <Link to={"/"} className={classNames("header div category item")}>
+            랭킹
+          </Link>
+          <Link
+            to={"/teacher"}
+            className={classNames("header div category item")}
+          >
+            선생님
+          </Link>
+          <Link to={"/"} className={classNames("header div category item")}>
+            질문 추천
+          </Link>
         </div>
       </div>
     </header>
