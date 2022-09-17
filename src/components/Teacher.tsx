@@ -4,12 +4,46 @@ import Header from "./Header";
 import "../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import Modal from "react-modal";
+import { instance } from "../instance";
 
 function Teacher() {
   const [modal, setModal] = useState(false);
+  const [teacherInfo, setTeacherInfo] = useState({
+    profileImg: "",
+    name: "",
+    description: "",
+  });
+  Modal.setAppElement("#root");
   const onModal = () => {
     setModal(true);
     console.log("wow");
+  };
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    const nextInputs = {
+      ...teacherInfo,
+      [name]: value,
+    };
+
+    setTeacherInfo(nextInputs);
+  };
+
+  const postTeacher = async () => {
+    try {
+      const response = await instance.post("teacher", teacherInfo, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -72,7 +106,35 @@ function Teacher() {
           </div>
         </div>
       </div>
-      <Modal isOpen={modal}></Modal>
+      <Modal
+        isOpen={modal}
+        onRequestClose={() => setModal(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
+            zIndex: 100,
+          },
+          content: {
+            width: "400px",
+            height: "500px",
+            margin: "auto",
+            borderRadius: "20px",
+            overflowX: "hidden",
+          },
+        }}
+      >
+        <div>
+          이미지 선택 :{" "}
+          <input type="file" name="profileImg" onChange={(e) => onChange(e)} />
+        </div>
+        <div>
+          성함 : <input type="text" name="name" onChange={(e) => onChange(e)} />
+        </div>
+        <div>
+          설명 : <textarea name="description" onChange={(e) => onChange(e)} />
+        </div>
+        <button onClick={() => postTeacher()}>확인</button>
+      </Modal>
     </div>
   );
 }
