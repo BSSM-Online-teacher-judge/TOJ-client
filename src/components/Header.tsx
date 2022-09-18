@@ -18,7 +18,7 @@ function Header() {
           <span>로그인</span>
         </div>
         <div className={classNames("header div category")}>
-          <Link to={"/"} className={classNames("header div category item")}>
+          <Link to={"/survey"} className={classNames("header div category item")}>
             단계별로 평가하기
           </Link>
           <Link to={"/"} className={classNames("header div category item")}>
