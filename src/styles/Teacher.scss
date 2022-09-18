@@ -1,0 +1,58 @@
+
+$main_blue: #2980b9;
+
+@mixin icon {
+    cursor: pointer;
+    border: 2px solid $main_blue;
+    border-radius: 5px;
+}
+
+.Teacher{
+    .plus{
+        @include icon();
+        color: white;
+        background-color: rgb(118, 168, 43);
+        // float: right;
+        position: absolute;
+        top: 100px;
+        right: 20px;
+    }
+    .minus{
+        @include icon();
+    }
+    
+    .title{
+        text-align: center;
+        .title{
+            display: inline-block;
+            color: $main_blue;
+        }
+    }
+    .List{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        row-gap: 50px;
+        text-align: center;
+    }
+    .item{
+        border-radius: 20px;
+        margin: 0 auto;
+        width: 300px;
+        height: 350px;
+        border: 3px solid $main_blue;
+        padding: 20px;
+        h3{
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
+    }
+    .img{
+        width: 250px;
+        height: 250px;
+        // margin: 0 auto;
+        // display: block;
+    }
+}
