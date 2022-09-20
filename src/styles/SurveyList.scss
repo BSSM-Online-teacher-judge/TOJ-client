@@ -1,0 +1,43 @@
+@mixin width($width) {
+    width: $width;
+}
+
+.SurveyList{
+    border-collapse: collapse;
+    width: 1170px;
+    margin: 0 auto;
+    color: #333333;
+    vertical-align: middle;
+    .tier{
+        width: 15px;
+    }
+    .first{
+        @include width(10%);
+    }
+    .second{
+        @include width(30%);
+    }
+    .third{
+        @include width(60%);
+    }
+    .th{
+        border: 1px solid #ddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .td{
+        border: 1px solid #ddd;
+        padding: 8px;
+        // &.second{
+        //     color: #0076C0;
+        // }
+    }
+    .name{
+        color: #0076C0;
+    }
+    .tr{
+        &:nth-child(odd){
+            background-color: #F9F9F9;
+        }
+    }
+}
