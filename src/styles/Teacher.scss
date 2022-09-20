@@ -1,24 +1,28 @@
 
 $main_blue: #2980b9;
 
-@mixin icon {
+@mixin icon($top) {
     cursor: pointer;
     border: 2px solid $main_blue;
     border-radius: 5px;
+    top: $top;
+    position: absolute;
 }
 
 .Teacher{
     .plus{
-        @include icon();
+        @include icon(100px);
         color: white;
-        background-color: rgb(118, 168, 43);
-        // float: right;
-        position: absolute;
-        top: 100px;
         right: 20px;
+        background-color: rgb(118, 168, 43);
     }
     .minus{
-        @include icon();
+        @include icon(20px);
+        right: 20px;
+    }
+    .tool{
+        @include icon(20px);
+        left: 20px;
     }
     
     .title{
@@ -41,6 +45,7 @@ $main_blue: #2980b9;
         margin: 0 auto;
         width: 300px;
         height: 380px;
+        position: relative;
         border: 3px solid $main_blue;
         padding: 20px;
         h3{

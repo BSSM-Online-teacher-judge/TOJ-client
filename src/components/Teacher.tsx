@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import "../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
+import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
 import { instance } from "../instance";
 
@@ -14,9 +15,61 @@ interface teacher {
 }
 
 function TeacherList({ item }: { item: teacher }) {
+  const [modal, setModal] = useState(false);
+  const [teacherInfo, setTeacherInfo] = useState({
+    profileImg: "",
+    name: "",
+    description: "",
+  });
+  const putTeacher = async () => {
+    try {
+      const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteTeacher = async () => {
+    try {
+      const respose = await instance.delete(`teacher/${item.id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+
+    const nextInputs = {
+      ...teacherInfo,
+      [name]: value,
+    };
+
+    setTeacherInfo(nextInputs);
+  };
   return (
     <div className={classNames("Teacher item")}>
-      {/* <TiMinus size={28} className={classNames("Teacher minus")} /> */}
+      <TiMinus
+        size={28}
+        className={classNames("Teacher minus")}
+        onClick={() => deleteTeacher()}
+      />
+      <FiTool
+        size={28}
+        className={classNames("Teacher tool")}
+        onClick={() => setModal(true)}
+      />
       <img
         src="./images/face.png"
         alt="선생님 얼굴"
@@ -24,6 +77,35 @@ function TeacherList({ item }: { item: teacher }) {
       />
       <h3>{item.name}</h3>
       <section>{item.description}</section>
+      <Modal
+        isOpen={modal}
+        onRequestClose={() => setModal(false)}
+        style={{
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.1)",
+            zIndex: 100,
+          },
+          content: {
+            width: "400px",
+            height: "500px",
+            margin: "auto",
+            borderRadius: "20px",
+            overflowX: "hidden",
+          },
+        }}
+      >
+        <div>
+          이미지 선택 :{" "}
+          <input type="file" name="profileImg" onChange={(e) => onChange(e)} />
+        </div>
+        <div>
+          성함 : <input type="text" name="name" onChange={(e) => onChange(e)} />
+        </div>
+        <div>
+          설명 : <textarea name="description" onChange={(e) => onChange(e)} />
+        </div>
+        <button onClick={() => putTeacher()}>확인</button>
+      </Modal>
     </div>
   );
 }
@@ -60,7 +142,7 @@ function Teacher() {
     try {
       const response = await instance.post("teacher", teacherInfo, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
         },
       });
       console.log(response);
@@ -68,6 +150,7 @@ function Teacher() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     const getTeacher = async () => {
       try {
