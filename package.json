@@ -51,6 +51,8 @@
     ]
   },
   "devDependencies": {
+    "@types/ckeditor": "^4.9.10",
+    "@types/ckeditor__ckeditor5-build-classic": "^29.0.1",
     "@types/react-modal": "^3.13.1",
     "axios": "^0.27.2"
   }

@@ -1,13 +1,36 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import "../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import Modal from "react-modal";
 import { instance } from "../instance";
 
+interface teacher {
+  id: number;
+  name: string;
+  description: string;
+  profileImg: string;
+}
+
+function TeacherList({ item }: { item: teacher }) {
+  return (
+    <div className={classNames("Teacher item")}>
+      {/* <TiMinus size={28} className={classNames("Teacher minus")} /> */}
+      <img
+        src="./images/face.png"
+        alt="선생님 얼굴"
+        className={classNames("Teacher img")}
+      />
+      <h3>{item.name}</h3>
+      <section>{item.description}</section>
+    </div>
+  );
+}
+
 function Teacher() {
   const [modal, setModal] = useState(false);
+  const [teacherList, setTeacherList] = useState<teacher[]>([]);
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
@@ -45,6 +68,17 @@ function Teacher() {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const getTeacher = async () => {
+      try {
+        const response = await instance.get("teacher");
+        setTeacherList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTeacher();
+  }, []);
   return (
     <div>
       <Header />
@@ -58,52 +92,9 @@ function Teacher() {
           />
         </div>
         <div className={classNames("Teacher List")}>
-          <div className={classNames("Teacher item")}>
-            <TiMinus size={28} className={classNames("Teacher minus")} />
-            <img
-              src="./images/face.png"
-              alt="선생님 얼굴"
-              className={classNames("Teacher img")}
-            />
-            <h3>정승민</h3>
-            <section>이 시대 최고의 참선생</section>
-          </div>
-          <div className={classNames("Teacher item")}>
-            <img
-              src="./images/face.png"
-              alt="선생님 얼굴"
-              className={classNames("Teacher img")}
-            />
-            <h3>정승민</h3>
-            <section>이 시대 최고의 참선생</section>
-          </div>
-          <div className={classNames("Teacher item")}>
-            <img
-              src="./images/face.png"
-              alt="선생님 얼굴"
-              className={classNames("Teacher img")}
-            />
-            <h3>정승민</h3>
-            <section>이 시대 최고의 참선생</section>
-          </div>
-          <div className={classNames("Teacher item")}>
-            <img
-              src="./images/face.png"
-              alt="선생님 얼굴"
-              className={classNames("Teacher img")}
-            />
-            <h3>정승민</h3>
-            <section>이 시대 최고의 참선생</section>
-          </div>
-          <div className={classNames("Teacher item")}>
-            <img
-              src="./images/face.png"
-              alt="선생님 얼굴"
-              className={classNames("Teacher img")}
-            />
-            <h3>정승민</h3>
-            <section>이 시대 최고의 참선생</section>
-          </div>
+          {teacherList.map((item) => {
+            return <TeacherList item={item} key={item.id} />;
+          })}
         </div>
       </div>
       <Modal
