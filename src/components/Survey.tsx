@@ -1,6 +1,8 @@
+import classNames from "classnames";
 import React, { useState } from "react";
 import { instance } from "../instance";
 import Header from "./Header";
+import "../styles/Survey.scss";
 
 function Survey() {
   const [stat, setStat] = useState<number[]>([]);
@@ -34,7 +36,7 @@ function Survey() {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
           },
         }
       );
@@ -54,11 +56,11 @@ function Survey() {
   return (
     <div>
       <Header />
-      {statArray.map((statItem, statIndex) => {
-        return (
-          <div key={statIndex}>
-            <ul>
-              {statItem} :
+      <div className={classNames("survey")}>
+        {statArray.map((statItem, statIndex: number) => {
+          return (
+            <ul className={classNames("survey stat")} key={statIndex}>
+              <span className={classNames("survey key")}>{statItem}</span>
               {[...Array(10)].map((item, index) => {
                 return (
                   <li key={index}>
@@ -73,9 +75,9 @@ function Survey() {
                 );
               })}
             </ul>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
       <button onClick={() => submit()}>제출</button>
     </div>
   );
