@@ -1,15 +1,29 @@
 import classNames from "classnames";
-import { Header } from "../allFiles";
+import { Header, Comment } from "../allFiles";
 import "../styles/teacherInfo.scss";
-import { AiOutlineCaretDown } from "react-icons/ai";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 function TeacherInfo() {
-  const postCommnet = () => { };
-
+  const param = useParams();
   const [write, setWrite] = useState();
+  const [comment, setComment] = useState();
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                setComment(await getComment());
+            }catch(error){
+                console.log(error);
+            }
+        })();
+    })
+
+    const getComment = () => {
+        return axios.get(`/teacher/comment/${param.teacherId}`);
+    }
 
   return (
     <div className={classNames("teacher")}>
@@ -28,34 +42,9 @@ function TeacherInfo() {
         </div>
       </div>
       <div className={classNames("teacher comments")}>
-        <div className={classNames("comments comment")}>
-          <div className={classNames("comment user")}>
-            <img
-              src="/images/profileTest.png"
-              alt="icon"
-              className={classNames("user profile")}
-            />
-            <span className={classNames("user nickname")}>ㅇㅇ</span>
-          </div>
-          <p className={classNames("comment content")}>하이</p>
-          <div className={classNames("comment detail")}>
-            <AiOutlineCaretDown />
-            <button className={classNames("detail button")}>더보기</button>
-          </div>
-        </div>
-        <div className={classNames("comments comment")}>
-          <div className={classNames("comment user")}>
-            <img
-              src="/images/profileTest.png"
-              alt="icon"
-              className={classNames("user profile")}
-            />
-            <span className={classNames("user nickname")}>ㅇㅇ</span>
-          </div>
-          <p className={classNames("comment content")}>
-            ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-          </p>
-        </div>
+        {comment.map((value)=>{
+          return <Comment teacherId={value.teacherId} commentId={value.commentId} content={value.content} hasChild={value.hasChild} />
+        })}
       </div>
       <div className="teacher write">
         <CKEditor

@@ -41,7 +41,7 @@ const StyledSpan = styled.span`
   align-items: center;
 `
 
-export default function TeacherOverall({name, value}){
+export default function teacherTier({name, value}){
     return(
         <>
             <StyledSection>
