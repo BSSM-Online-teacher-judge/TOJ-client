@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 import "../styles/Header.scss";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 function Header() {
+
+  const user = useContext(UserContext);
+  const logout = () => {
+    
+  }
+
   return (
     <header className="header">
       <Link to={"/"}>
@@ -14,11 +21,17 @@ function Header() {
         />
       </Link>
       <div className={classNames("header div")}>
+        {user.isLogin ? 
+        <div>
+          <span>{user.nickName}</span>
+          <button onClick={logout}>로그아웃</button>
+        </div> 
+        :
         <div className={classNames("header signup")}>
           <span><Link to="/signup">회원가입</Link></span>
           <span className={classNames("header signup line")}></span>
           <span><Link to="/login">로그인</Link></span>
-        </div>
+        </div>}
         <div className={classNames("header div category")}>
           <Link
             to={"/survey"}
