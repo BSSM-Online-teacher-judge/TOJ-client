@@ -8,7 +8,7 @@ function Header() {
     <header className="header">
       <Link to={"/"}>
         <img
-          src="./images/logo.png"
+          src="/images/logo.png"
           alt="로고"
           className={classNames("header logo")}
         />

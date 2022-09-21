@@ -6,6 +6,7 @@ import { TiPlus, TiMinus } from "react-icons/ti";
 import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
 import { instance } from "../instance";
+import { Link } from "react-router-dom";
 
 interface teacher {
   id: number;
@@ -23,11 +24,13 @@ function TeacherList({ item }: { item: teacher }) {
   });
   const putTeacher = async () => {
     try {
-      const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-        },
-      });
+      // const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
+      //   headers: {
+      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+      //   },
+      // });
+      const response = await instance.put(`teacher/${item.id}`, teacherInfo);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -35,11 +38,13 @@ function TeacherList({ item }: { item: teacher }) {
 
   const deleteTeacher = async () => {
     try {
-      const respose = await instance.delete(`teacher/${item.id}`, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-        },
-      });
+      // const response = await instance.delete(`teacher/${item.id}`, {
+      //   headers: {
+      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+      //   },
+      // });
+      const response = await instance.delete(`teacher/${item.id}`);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -59,24 +64,29 @@ function TeacherList({ item }: { item: teacher }) {
     setTeacherInfo(nextInputs);
   };
   return (
-    <div className={classNames("Teacher item")}>
+    <div className={classNames("item")}>
       <TiMinus
         size={28}
-        className={classNames("Teacher minus")}
+        className={classNames("minus")}
         onClick={() => deleteTeacher()}
       />
       <FiTool
         size={28}
-        className={classNames("Teacher tool")}
+        className={classNames("tool")}
         onClick={() => setModal(true)}
       />
-      <img
-        src="./images/face.png"
-        alt="선생님 얼굴"
-        className={classNames("Teacher img")}
-      />
-      <h3>{item.name}</h3>
-      <section>{item.description}</section>
+      <Link
+        to={`/teacher/${item.id}`}
+        state={{ name: item.name, description: item.description }}
+      >
+        <img
+          src="./images/face.png"
+          alt="선생님 얼굴"
+          className={classNames("img")}
+        />
+        <h3>{item.name}</h3>
+        <section>{item.description}</section>
+      </Link>
       <Modal
         isOpen={modal}
         onRequestClose={() => setModal(false)}
@@ -94,10 +104,10 @@ function TeacherList({ item }: { item: teacher }) {
           },
         }}
       >
-        <div>
+        {/* <div>
           이미지 선택 :{" "}
           <input type="file" name="profileImg" onChange={(e) => onChange(e)} />
-        </div>
+        </div> */}
         <div>
           성함 : <input type="text" name="name" onChange={(e) => onChange(e)} />
         </div>
@@ -140,11 +150,12 @@ function Teacher() {
 
   const postTeacher = async () => {
     try {
-      const response = await instance.post("teacher", teacherInfo, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-        },
-      });
+      // const response = await instance.post("teacher", teacherInfo, {
+      //   headers: {
+      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+      //   },
+      // });
+      const response = await instance.post("teacher", teacherInfo);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -166,15 +177,11 @@ function Teacher() {
     <div>
       <Header />
       <div className={classNames("Teacher")}>
-        <div className={classNames("Teacher title")}>
-          <h1 className={classNames("Teacher title title")}>TEACHER</h1>
-          <TiPlus
-            size={28}
-            className={classNames("Teacher plus")}
-            onClick={onModal}
-          />
+        <div className={classNames("title")}>
+          <h1 className={classNames("title title")}>TEACHER</h1>
+          <TiPlus size={28} className={classNames("plus")} onClick={onModal} />
         </div>
-        <div className={classNames("Teacher List")}>
+        <div className={classNames("List")}>
           {teacherList.map((item) => {
             return <TeacherList item={item} key={item.id} />;
           })}
@@ -197,10 +204,10 @@ function Teacher() {
           },
         }}
       >
-        <div>
+        {/* <div>
           이미지 선택 :{" "}
           <input type="file" name="profileImg" onChange={(e) => onChange(e)} />
-        </div>
+        </div> */}
         <div>
           성함 : <input type="text" name="name" onChange={(e) => onChange(e)} />
         </div>

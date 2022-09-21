@@ -10,6 +10,7 @@ $main_blue: #2980b9;
 }
 
 .Teacher{
+    padding-bottom: 20px;
     .plus{
         @include icon(100px);
         color: white;
@@ -30,15 +31,17 @@ $main_blue: #2980b9;
         .title{
             display: inline-block;
             color: $main_blue;
+            margin: 20px;
         }
     }
     .List{
-        width: 100%;
+        width: 80%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         justify-content: center;
-        row-gap: 50px;
+        gap: 10px;
         text-align: center;
+        margin: 0 auto;
     }
     .item{
         border-radius: 20px;
@@ -47,7 +50,16 @@ $main_blue: #2980b9;
         height: 380px;
         position: relative;
         border: 3px solid $main_blue;
+        // color: black;
         padding: 20px;
+        a{
+            &:visited{
+                color: black;
+            }
+            &:link{
+                color: black;
+            }
+        }
         h3{
             margin-top: 0;
             margin-bottom: 10px;
