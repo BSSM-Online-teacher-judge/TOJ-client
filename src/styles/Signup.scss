@@ -1,0 +1,123 @@
+.signUp{
+    width: 100%;
+    height: 100%;
+    .input-div{
+        .title{
+            padding: 20px 0 0 11em;
+            padding-bottom: 20px;
+            font-size: 20px;
+            font-weight: 500;
+            color: gray;
+            border-bottom: 1px solid lightgray;
+        }
+        .input{
+            margin: 0 auto;
+            width: 700px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border: 1px solid lightgray;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            .button{
+                background-color: #0076C0;
+                color: white;
+                margin: 0;
+                margin-bottom: 30px;
+                padding: 0;
+                width: 100px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .list{
+                width: 500px;
+                border-left: none;
+                border-right: none;
+                padding-bottom: 20px;
+                .ul{
+                    p{
+                        margin-bottom: 5px;
+                    }
+                    li{
+                        margin-top: 20px;
+                        font-size: 13px;
+                        color: gray;
+                        font-weight: bold;
+                    }
+                    input[type=text], input[type=password], input[type=email]{
+                        border: 1px solid gray;
+                        width: 500px;
+                        font-size: 13px;
+                        padding: 5px;
+                    }
+                    .check-code-li{
+                        input{
+                            width: 120px;
+                        }
+                        button{
+                            margin-left: 30px;
+                            font-weight: bold;
+                            color: white;
+                            background-color: #0076C0;
+                            border: none;
+                            width: 50px;
+                            height: 25px;
+                        }
+                    }
+                    .certification-li{
+                        > button{
+                            margin-left: 15px;
+                            margin-top: 10px;
+                            font-weight: bold;
+                            color: white;
+                            background-color: #0076C0;
+                            border: none;
+                            width: 80px;
+                            height: 25px;
+                        }
+                    }
+                    .password-li{
+                        display: flex;
+                        .password-input-li{
+                            display: block;
+                            margin-right: 60px;
+                            > input{
+                                width: 220px;
+                            }
+                        }
+                        .password-check-li{
+                            display: block;
+                            > input{
+                                width: 220px;
+                            }
+                        }
+                    }
+                    .select-li{
+                        width: 250px;
+                        height: 80px;
+                        background-color: rgb(243, 243, 243);
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 3px;
+                        border: 1px solid lightgray;
+                        input[type=checkbox]{
+                            margin-left: 15px;
+                            margin-right: 15px;
+                            width: 30px;
+                            height: 30px;
+                        }
+                        .select-text{
+                            color: black;
+                            font-size: 15px;
+                            font-weight: 400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
