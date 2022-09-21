@@ -15,9 +15,9 @@ function Header() {
       </Link>
       <div className={classNames("header div")}>
         <div className={classNames("header signup")}>
-          <span>회원가입</span>
+          <span><Link to="/signup">회원가입</Link></span>
           <span className={classNames("header signup line")}></span>
-          <span>로그인</span>
+          <span><Link to="/login">로그인</Link></span>
         </div>
         <div className={classNames("header div category")}>
           <Link
