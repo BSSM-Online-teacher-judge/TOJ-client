@@ -5,11 +5,11 @@
 .SurveyList{
     border-collapse: collapse;
     width: 1170px;
-    margin: 0 auto;
+    margin: 40px auto;
     color: #333333;
     vertical-align: middle;
     .tier{
-        width: 15px;
+        @include width(15px);
     }
     .first{
         @include width(10%);
@@ -24,6 +24,7 @@
         border: 1px solid #ddd;
         text-align: left;
         padding: 8px;
+        margin: 0;
     }
     .td{
         border: 1px solid #ddd;
@@ -39,5 +40,6 @@
         &:nth-child(odd){
             background-color: #F9F9F9;
         }
+        margin: 0;
     }
 }

@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Header } from "../allFiles";
 import { instance } from "../instance";
 import "../styles/SurveyList.scss";
@@ -29,27 +30,28 @@ function SurveyList() {
       <Header />
       <table className={classNames("SurveyList")}>
         <thead>
-          <th className={classNames("SurveyList th first")}>문제</th>
-          <th className={classNames("SurveyList th second")}>문제 제목</th>
-          <th className={classNames("SurveyList th third")}>정보</th>
+          <th className={classNames("th first")}>문제</th>
+          <th className={classNames("th second")}>문제 제목</th>
+          <th className={classNames("th third")}>정보</th>
         </thead>
         <tbody>
           {teacherList.map((item: teacher, index) => {
             return (
-              <tr className={classNames("SurveyList tr")} key={item.id}>
-                <td className={classNames("SurveyList td first")}>
+              <tr className={classNames("tr")} key={item.id}>
+                <td className={classNames("td first")}>
                   {index + 1}
                 </td>
-                <td className={classNames("SurveyList td second")}>
+                <td className={classNames("td second")}>
                   <img
                     src="https://d2gd6pc034wcta.cloudfront.net/tier/1.svg"
                     alt="티어"
-                    className={classNames("SurveyList tier")}
+                    className={classNames("tier")}
                   />
-                  <span
-                    className={classNames("SurveyList name")}>{item.name}</span>
+                  <span className={classNames("name")}>
+                    <Link to={`/survey/${item.id}`}>{item.name}</Link>
+                  </span>
                 </td>
-                <td className={classNames("SurveyList td third")}>
+                <td className={classNames("td third")}>
                   {item.description}
                 </td>
               </tr>
