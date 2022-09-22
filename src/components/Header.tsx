@@ -1,14 +1,30 @@
-import React, { useContext } from "react";
+import React from "react";
 import classNames from "classnames";
 import "../styles/Header.scss";
-import { Link } from "react-router-dom";
-import { UserContext } from "../App";
+import { Link, useNavigate } from "react-router-dom";
+import { instance } from "../instance";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from '../modules';
+import { removeUser } from '../modules/user'
 
 function Header() {
 
-  const user = useContext(UserContext);
-  const logout = () => {
-    
+  const nav = useNavigate();
+  const users = useSelector((state: RootState) => state.users);
+  const dispatch = useDispatch();
+
+  const onRemove = () => {
+    dispatch(removeUser());
+  }
+
+  const logout = () => { 
+    instance.delete('/auth', { headers: {
+      Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+    }})
+    onRemove();
+    window.sessionStorage.removeItem('access-token');
+    window.sessionStorage.removeItem('refresh-token');
+    nav('/');
   }
 
   return (
@@ -21,10 +37,11 @@ function Header() {
         />
       </Link>
       <div className={classNames("header div")}>
-        {user.isLogin ? 
-        <div>
-          <span>{user.nickName}</span>
-          <button onClick={logout}>로그아웃</button>
+        {users.isLogin ? 
+        <div className={classNames("header user")}>
+          <span className={classNames("header username")}>{users.nickName}</span>
+          <span className={classNames("header signup line")}></span>
+          <span className={classNames("header logout")} onClick={logout}>로그아웃</span>
         </div> 
         :
         <div className={classNames("header signup")}>

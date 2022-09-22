@@ -28,6 +28,7 @@ export default function Signup()
     const [certification, setCertification] = useState(false);
     const [code, setCode] = useState("");
     const [checkPw, setCheckPw] = useState("");
+    const [robot, setRobot] = useState(false);
 
     const change = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -43,7 +44,6 @@ export default function Signup()
     }
 
     const signup = async () => {
-        console.log(input)
         try{
             if(!(input.password === checkPw)){
                 alert('비밀번호가 같지 않습니다.');
@@ -56,6 +56,9 @@ export default function Signup()
             }
             else if(Number(input.classRoom) > 4){
                 alert("반이 유효하지 않습니다.");
+            }
+            else if(robot){
+                alert("로봇은 가입할 수 없습니다.");
             }
             else{
                 await instance.post("/user", input);
@@ -184,6 +187,8 @@ export default function Signup()
                                 <input
                                     type="checkbox"
                                     name="robot"
+                                    checked={robot}
+                                    onClick={()=>{setRobot((prev)=> !prev)}}
                                 />
                                 <span className={classNames("select-text")}>로봇입니까?</span>
                             </li>
