@@ -24,12 +24,11 @@ function TeacherList({ item }: { item: teacher }) {
   });
   const putTeacher = async () => {
     try {
-      // const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
-      //   headers: {
-      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-      //   },
-      // });
-      const response = await instance.put(`teacher/${item.id}`, teacherInfo);
+      const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        },
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -38,12 +37,11 @@ function TeacherList({ item }: { item: teacher }) {
 
   const deleteTeacher = async () => {
     try {
-      // const response = await instance.delete(`teacher/${item.id}`, {
-      //   headers: {
-      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-      //   },
-      // });
-      const response = await instance.delete(`teacher/${item.id}`);
+      const response = await instance.delete(`teacher/${item.id}`, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        },
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -150,12 +148,11 @@ function Teacher() {
 
   const postTeacher = async () => {
     try {
-      // const response = await instance.post("teacher", teacherInfo, {
-      //   headers: {
-      //     Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-      //   },
-      // });
-      const response = await instance.post("teacher", teacherInfo);
+      const response = await instance.post("teacher", teacherInfo, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        },
+      });
       console.log(response);
     } catch (error) {
       console.log(error);

@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { instance } from "../instance";
 import Header from "./Header";
 import "../styles/Survey.scss";
+import { useParams } from "react-router-dom";
 
-function Survey() {
+function SurveyInput() {
   const [stat, setStat] = useState<number[]>([]);
+  const param = useParams();
   const statArray = [
     "유머",
     "인성",
@@ -21,7 +23,7 @@ function Survey() {
   const submit = async () => {
     try {
       const response = await instance.post(
-        "teacher",
+        `stats/survey/${param.id}`,
         {
           humor: stat[0],
           tenacity: stat[1],
@@ -40,6 +42,7 @@ function Survey() {
           },
         }
       );
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -54,8 +57,7 @@ function Survey() {
     setStat(newArray);
   };
   return (
-    <div>
-      <Header />
+    <>
       <div className={classNames("survey")}>
         {statArray.map((statItem, statIndex: number) => {
           return (
@@ -79,6 +81,16 @@ function Survey() {
         })}
       </div>
       <button onClick={() => submit()}>제출</button>
+    </>
+  );
+}
+
+function Survey() {
+  return (
+    <div>
+      <Header />
+      
+      <SurveyInput />
     </div>
   );
 }
