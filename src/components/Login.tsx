@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonFill } from 'react-icons/bs';
 import { FaLock } from 'react-icons/fa'
 import '../styles/Login.scss'
+import { useDispatch } from "react-redux";
+import { setUser, UserInfo } from "../modules/user";
 
 interface Login{
     email: string;
@@ -20,6 +22,12 @@ export default function Login()
         password: ""
     });
 
+    const dispatch = useDispatch();
+
+    const onInsert = (userInfo: UserInfo) => {
+        dispatch(setUser(userInfo));
+    }
+
     const change = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const newInput = {
@@ -31,14 +39,23 @@ export default function Login()
 
     const login = async () => {
         try{
-            const data = await instance.post('/auth', input);
-            const { accessToken, refreshToken } = data.data;
-            window.sessionStorage.setItem("access-token", accessToken);
-            window.sessionStorage.setItem("refresh-token", refreshToken);
+            const { accessToken, refreshToken } = (await instance.post('/auth', input)).data;
+            const userInfo = (await getUser(accessToken)).data;
+            const user = {
+                ...userInfo,
+                isLogin: true
+            };
+            onInsert(user);
+            window.sessionStorage.setItem('access-token', accessToken);
+            window.sessionStorage.setItem('refresh-token', refreshToken);
             nav('/');
         }catch(error){
             console.log(error);
         }
+    }
+
+    const getUser = (accessToken: string) => {
+        return instance.get('/user', { headers: { Authorization: `Bearer ${accessToken}` }})
     }
 
     return(

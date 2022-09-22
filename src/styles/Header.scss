@@ -16,6 +16,32 @@ header{
         width: calc(100% - 272px);
         display: flex;
         flex-direction: column;
+        .user{
+            height: 20px;
+            margin-right: 20px;
+            margin-top: 10px;
+            display: flex;
+            position: relative;
+            justify-content: flex-end;
+            flex-direction: row;
+            gap: 10px;
+            .username, .logout{
+                text-align: center;
+                font-size: 11px;
+                color: #7c8082;
+                cursor: pointer;
+                &:hover{
+                    text-decoration-line: underline;
+                }
+            }
+            .line{
+                background-color: #bbb;
+                width: 1px;
+                margin-top: 0;
+                margin-right: 0;
+                height: 14.4px;
+            }
+        }
         .signup{
             height: 20px;
             margin-right: 20px;
