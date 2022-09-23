@@ -20,6 +20,24 @@
     .third{
         @include width(60%);
     }
+    .fourth{
+        @include width(70%);
+        .complete, .incomplete{
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 25px;
+            color: white;
+        }
+        .complete{
+            background-color: #5cb85c;
+        }
+        .incomplete{
+            background-color: #d9534f;
+        }
+    }
     .th{
         border: 1px solid #ddd;
         text-align: left;

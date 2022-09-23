@@ -22,8 +22,8 @@ function Header() {
       Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
     }})
     onRemove();
-    window.sessionStorage.removeItem('access-token');
-    window.sessionStorage.removeItem('refresh-token');
+    sessionStorage.removeItem("access-token");
+    sessionStorage.removeItem("refresh-token");
     nav('/');
   }
 

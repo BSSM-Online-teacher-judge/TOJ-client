@@ -162,7 +162,11 @@ function Teacher() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
-        const response = await instance.get("teacher");
+        const response = await instance.get("teacher", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          },
+        });
         setTeacherList(response.data);
       } catch (error) {
         console.log(error);
