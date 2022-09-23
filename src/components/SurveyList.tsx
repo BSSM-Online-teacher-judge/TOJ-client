@@ -10,6 +10,7 @@ interface teacher {
   name: string;
   description: string;
   profileImg: string;
+  completed: boolean;
 }
 
 function SurveyList() {
@@ -17,7 +18,11 @@ function SurveyList() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
-        const response = await instance.get("teacher");
+        const response = await instance.get("teacher", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          },
+        });
         setTeacherList(response.data);
       } catch (error) {
         console.log(error);
@@ -32,7 +37,8 @@ function SurveyList() {
         <thead>
           <th className={classNames("th first")}>문제</th>
           <th className={classNames("th second")}>문제 제목</th>
-          <th className={classNames("th third")}>정보</th>
+          <th className={classNames("th third")}>설명</th>
+          <th className={classNames("th fourth")}>정보</th>
         </thead>
         <tbody>
           {teacherList.map((item: teacher, index) => {
@@ -52,7 +58,10 @@ function SurveyList() {
                   </span>
                 </td>
                 <td className={classNames("td third")}>
-                  {item.description}
+                  <span>{item.description}</span>
+                </td>
+                <td className={classNames("td fourth")}>
+                  {item.completed ? <p className={classNames("third complete")}>완료</p> : <p className={classNames("third incomplete")}>실패</p>}
                 </td>
               </tr>
             );
