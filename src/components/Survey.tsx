@@ -80,7 +80,9 @@ function SurveyInput() {
           );
         })}
       </div>
-      <button onClick={() => submit()}>제출</button>
+      <div className="submit-div">
+        <button onClick={() => submit()} className="submit">제출</button>
+      </div>
     </>
   );
 }
@@ -89,7 +91,6 @@ function Survey() {
   return (
     <div>
       <Header />
-      
       <SurveyInput />
     </div>
   );

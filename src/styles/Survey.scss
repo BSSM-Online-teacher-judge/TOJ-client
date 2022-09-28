@@ -1,3 +1,6 @@
+
+$main_blue: #2980b9;
+
 .survey{
     width: 80%;
     margin: 0 auto;
@@ -17,5 +20,18 @@
     .key{
         width: 100px;
         text-align: center;
+    }
+}
+
+.submit-div{
+    text-align: center;
+    .submit{
+        width: 100px;
+        height: 50px;
+        border: none;
+        background-color: $main_blue;
+        color: white;
+        border-radius: 10px;
+        margin-top: 20px;
     }
 }

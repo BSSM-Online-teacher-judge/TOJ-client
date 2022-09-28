@@ -19,7 +19,7 @@ function App() {
             isLogin: true
         };
         onInsert(user);
-        nav('/');
+        // nav('/');
       }catch(error){
         console.log(error);
       }

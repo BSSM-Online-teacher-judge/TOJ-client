@@ -44,9 +44,7 @@ function SurveyList() {
           {teacherList.map((item: teacher, index) => {
             return (
               <tr className={classNames("tr")} key={item.id}>
-                <td className={classNames("td first")}>
-                  {index + 1}
-                </td>
+                <td className={classNames("td first")}>{index + 1}</td>
                 <td className={classNames("td second")}>
                   <img
                     src="https://d2gd6pc034wcta.cloudfront.net/tier/1.svg"
@@ -61,7 +59,11 @@ function SurveyList() {
                   <span>{item.description}</span>
                 </td>
                 <td className={classNames("td fourth")}>
-                  {item.completed ? <p className={classNames("third complete")}>완료</p> : <p className={classNames("third incomplete")}>실패</p>}
+                  {item.completed ? (
+                    <p className={classNames("third complete")}>완료</p>
+                  ) : (
+                    <p className={classNames("third incomplete")}>실패</p>
+                  )}
                 </td>
               </tr>
             );
