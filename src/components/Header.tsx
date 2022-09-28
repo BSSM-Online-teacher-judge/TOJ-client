@@ -4,23 +4,24 @@ import "../styles/Header.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { instance } from "../instance";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from '../modules';
-import { removeUser } from '../modules/user'
+import { RootState } from "../modules";
+import { removeUser } from "../modules/user";
 
 function Header() {
-
   const nav = useNavigate();
   const users = useSelector((state: RootState) => state.users);
   const dispatch = useDispatch();
 
   const onRemove = () => {
     dispatch(removeUser());
-  }
+  };
 
-  const logout = () => { 
-    instance.delete('/auth', { headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-    }})
+  const logout = () => {
+    instance.delete("/auth", {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+      },
+    });
     onRemove();
     sessionStorage.removeItem("access-token");
     sessionStorage.removeItem("refresh-token");
@@ -37,18 +38,27 @@ function Header() {
         />
       </Link>
       <div className={classNames("header div")}>
-        {users.isLogin ? 
-        <div className={classNames("header user")}>
-          <span className={classNames("header username")}>{users.nickName}</span>
-          <span className={classNames("header signup line")}></span>
-          <span className={classNames("header logout")} onClick={logout}>로그아웃</span>
-        </div> 
-        :
-        <div className={classNames("header signup")}>
-          <span><Link to="/signup">회원가입</Link></span>
-          <span className={classNames("header signup line")}></span>
-          <span><Link to="/login">로그인</Link></span>
-        </div>}
+        {users.isLogin ? (
+          <div className={classNames("header user")}>
+            <span className={classNames("header username")}>
+              {users.nickName}
+            </span>
+            <span className={classNames("header signup line")}></span>
+            <span className={classNames("header logout")} onClick={logout}>
+              로그아웃
+            </span>
+          </div>
+        ) : (
+          <div className={classNames("header signup")}>
+            <span>
+              <Link to="/signup">회원가입</Link>
+            </span>
+            <span className={classNames("header signup line")}></span>
+            <span>
+              <Link to="/login">로그인</Link>
+            </span>
+          </div>
+        )}
         <div className={classNames("header div category")}>
           <Link
             to={"/survey"}

@@ -13,7 +13,7 @@ function TeacherInfo() {
   const location = useLocation();
   const [write, setWrite] = useState();
   const [loading, setLoading] = useState(false);
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState([]);
 
   const [positiveData, setPositiveData] = useState([]);
 
@@ -72,8 +72,7 @@ function TeacherInfo() {
             Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
           },
         });
-        console.log(response);
-        console.log(commentResponse);
+        setComment(commentResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -81,6 +80,25 @@ function TeacherInfo() {
     getComment();
     setLoading(false);
   }, []);
+
+  console.log(comment);
+
+  const postComment = async () => {
+    try {
+      await instance.post('teacher/comment', {
+        teacherId: param.id,
+        content: write,
+      },
+        {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className={classNames("teacher")}>
@@ -104,19 +122,6 @@ function TeacherInfo() {
         {/* <TeacherTier name="인성" value="100%" />
         <TeacherTier name="엄" value="70%" /> */}
       </div>
-      <div className={classNames("teacher comments")}>
-        {loading &&
-          comment.map((value) => {
-            return (
-              <Comment
-                teacherId={value.teacherId}
-                commentId={value.commentId}
-                content={value.content}
-                hasChild={value.hasChild}
-              />
-            );
-          })}
-      </div>
       <div className={classNames('overallList')}>
         <div className={classNames("overall")}>
           <TeacherOverall data={positiveData} color={'category10'} itemKey={'긍정'} />
@@ -124,6 +129,21 @@ function TeacherInfo() {
         <div className={classNames("overall")}>
           <TeacherOverall data={negativeData} color={'set1'} itemKey={'부정'} />
         </div>
+      </div>
+      <div className={classNames("teacher comments")}>
+        {!loading &&
+          comment.map((value) => {
+            return (
+              <Comment
+                // teacherId={value.teacherId}
+                commentId={value.id}
+                createdAt={value.createdAt}
+                content={value.content}
+                hasChild={value.hasChild}
+                key={value.id}
+              />
+            );
+          })}
       </div>
       <div className="teacher write">
         <CKEditor
@@ -134,7 +154,7 @@ function TeacherInfo() {
             setWrite(data);
           }}
         />
-        <button className={classNames("write button")}>작성</button>
+        <button className={classNames("write button")} onClick={() => postComment()}>작성</button>
       </div>
     </div>
   );

@@ -63,16 +63,20 @@ function TeacherList({ item }: { item: teacher }) {
   };
   return (
     <div className={classNames("item")}>
-      <TiMinus
-        size={28}
-        className={classNames("minus")}
-        onClick={() => deleteTeacher()}
-      />
-      <FiTool
-        size={28}
-        className={classNames("tool")}
-        onClick={() => setModal(true)}
-      />
+      {localStorage.getItem("authority") === "ADMIN" && (
+        <>
+          <TiMinus
+            size={28}
+            className={classNames("minus")}
+            onClick={() => deleteTeacher()}
+          />
+          <FiTool
+            size={28}
+            className={classNames("tool")}
+            onClick={() => setModal(true)}
+          />
+        </>
+      )}
       <Link
         to={`/teacher/${item.id}`}
         state={{ name: item.name, description: item.description }}
@@ -121,6 +125,23 @@ function TeacherList({ item }: { item: teacher }) {
 function Teacher() {
   const [modal, setModal] = useState(false);
   const [teacherList, setTeacherList] = useState<teacher[]>([]);
+  // const [myInfo, setMyInfo] = useState({});
+  if (!localStorage.getItem("authority")) {
+    const getUserInfo = async () => {
+      try {
+        const response = await instance.get("user", {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          },
+        });
+        console.log(response.data.authority);
+        localStorage.setItem("authority", response.data.authority);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserInfo();
+  }
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
@@ -180,7 +201,13 @@ function Teacher() {
       <div className={classNames("Teacher")}>
         <div className={classNames("title")}>
           <h1 className={classNames("title title")}>TEACHER</h1>
-          <TiPlus size={28} className={classNames("plus")} onClick={onModal} />
+          {localStorage.getItem("authority") === "ADMIN" && (
+            <TiPlus
+              size={28}
+              className={classNames("plus")}
+              onClick={onModal}
+            />
+          )}
         </div>
         <div className={classNames("List")}>
           {teacherList.map((item) => {
