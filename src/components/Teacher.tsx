@@ -26,7 +26,7 @@ function TeacherList({ item }: { item: teacher }) {
     try {
       const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       });
       console.log(response);
@@ -39,7 +39,7 @@ function TeacherList({ item }: { item: teacher }) {
     try {
       const response = await instance.delete(`teacher/${item.id}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       });
       console.log(response);
@@ -131,7 +131,7 @@ function Teacher() {
       try {
         const response = await instance.get("user", {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         });
         console.log(response.data.authority);
@@ -171,7 +171,7 @@ function Teacher() {
     try {
       const response = await instance.post("teacher", teacherInfo, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       });
       console.log(response);
@@ -185,7 +185,7 @@ function Teacher() {
       try {
         const response = await instance.get("teacher", {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         });
         setTeacherList(response.data);

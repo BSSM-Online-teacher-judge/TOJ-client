@@ -3,9 +3,23 @@ import React, { useState } from "react";
 import { instance } from "../instance";
 import Header from "./Header";
 import "../styles/Survey.scss";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+
+interface teacher {
+  id: number;
+  name: string;
+  description: string;
+  profileImg: string;
+  completed: boolean;
+}
+
+interface state {
+  teacher: teacher;
+}
 
 function SurveyInput() {
+  const location = useLocation().state as state;
+  const { teacher } = location;
   const [stat, setStat] = useState<number[]>([]);
   const param = useParams();
   const statArray = [
@@ -29,7 +43,6 @@ function SurveyInput() {
           tenacity: stat[1],
           expertise: stat[2],
           fairness: stat[3],
-          // snackReadiness: stat[0],
           modesty: stat[4],
           passion: stat[5],
           stubborn: stat[6],
@@ -38,7 +51,7 @@ function SurveyInput() {
         },
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         }
       );
@@ -59,7 +72,22 @@ function SurveyInput() {
   return (
     <>
       <div className={classNames("survey")}>
-        {statArray.map((statItem, statIndex: number) => {
+        <div className={classNames("title")}>
+          <span className={classNames("name")}>{teacher.name}</span>
+          {teacher.completed ? (
+            <span className={classNames("third complete")}>성공</span>
+          ) : (
+            <span className={classNames("third incomplete")}>실패</span>
+          )}
+        </div>
+        <div className={classNames("content")}>
+          <div className={classNames("headline")}>
+            <h3>문제</h3>
+          </div>
+          <p>{teacher.description}</p>
+        </div>
+
+        {/* {statArray.map((statItem, statIndex: number) => {
           return (
             <ul className={classNames("survey stat")} key={statIndex}>
               <span className={classNames("survey key")}>{statItem}</span>
@@ -78,10 +106,12 @@ function SurveyInput() {
               })}
             </ul>
           );
-        })}
-      </div>
-      <div className="submit-div">
-        <button onClick={() => submit()} className="submit">제출</button>
+        })} */}
+        <div className="submit-div">
+          <button onClick={() => submit()} className="submit">
+            제출
+          </button>
+        </div>
       </div>
     </>
   );

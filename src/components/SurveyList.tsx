@@ -20,7 +20,7 @@ function SurveyList() {
       try {
         const response = await instance.get("teacher", {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         });
         setTeacherList(response.data);
@@ -52,7 +52,9 @@ function SurveyList() {
                     className={classNames("tier")}
                   />
                   <span className={classNames("name")}>
-                    <Link to={`/survey/${item.id}`}>{item.name}</Link>
+                    <Link to={`/survey/${item.id}`} state={{ teacher: item }}>
+                      {item.name}
+                    </Link>
                   </span>
                 </td>
                 <td className={classNames("td third")}>
@@ -60,7 +62,7 @@ function SurveyList() {
                 </td>
                 <td className={classNames("td fourth")}>
                   {item.completed ? (
-                    <p className={classNames("third complete")}>완료</p>
+                    <p className={classNames("third complete")}>성공</p>
                   ) : (
                     <p className={classNames("third incomplete")}>실패</p>
                   )}

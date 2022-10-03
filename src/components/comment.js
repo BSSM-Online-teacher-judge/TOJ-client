@@ -27,7 +27,7 @@ export default function Comment({
       setLoading(true);
       const response = await instance.get(`/teacher/comment/${commentId}`, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
         },
       });
       setReComment(response.data);
