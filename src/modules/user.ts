@@ -20,6 +20,7 @@ export interface UserInfo{
     grade: number;
     classRoom: number;
     isLogin: boolean;
+    authority: string;
 }
 
 export type UserState = UserInfo;
@@ -31,6 +32,7 @@ const initialState: UserState = {
     grade: 0,
     classRoom: 0,
     isLogin: false,
+    authority: ""
 }
 
 function users(
@@ -46,6 +48,7 @@ function users(
             state.grade = action.payload.grade;
             state.classRoom = action.payload.classRoom;
             state.isLogin = action.payload.isLogin;
+            state.authority = action.payload.authority;
             return state;
         case REMOVE_USER:
             state.id = 0;
@@ -55,6 +58,7 @@ function users(
             state.grade = 0;
             state.classRoom = 0;
             state.isLogin = false;
+            state.authority = "";
             return state;
         default:
             return state;
