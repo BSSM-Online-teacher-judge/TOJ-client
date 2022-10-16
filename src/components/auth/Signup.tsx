@@ -1,9 +1,9 @@
 import { useState } from "react"
 import classNames from "classnames"
-import '../styles/Signup.scss'
-import { Header } from "../allFiles";
+import '../../styles/Signup.scss'
+import { Header } from "../../allFiles";
 import { Link, useNavigate } from "react-router-dom";
-import { instance } from "../instance";
+import { instance } from "../../instance";
 
 interface SignUp{
     email: string;

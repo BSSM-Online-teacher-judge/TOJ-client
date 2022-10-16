@@ -1,15 +1,15 @@
 import { useState } from "react"
 import classNames from "classnames"
-import { Header } from "../allFiles"
-import { instance } from "../instance"
+import { Header } from "../../allFiles"
+import { instance } from "../../instance"
 import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonFill } from 'react-icons/bs';
 import { FaLock } from 'react-icons/fa'
-import '../styles/Login.scss'
+import '../../styles/Login.scss'
 import { useDispatch } from "react-redux";
-import { setUser, UserInfo } from "../modules/user";
+import { setUser, UserInfo } from "../../modules/user";
 
-interface Login{
+interface login{
     email: string;
     password: string;
 }
@@ -17,7 +17,7 @@ interface Login{
 export default function Login()
 {
     const nav = useNavigate();
-    const [input, setInput] = useState<Login>({
+    const [input, setInput] = useState<login>({
         email: "",
         password: ""
     });
@@ -54,6 +54,10 @@ export default function Login()
         }
     }
 
+    const keyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if(e.key === 'Enter') login();
+    }
+
     const getUser = (accessToken: string) => {
         return instance.get('/user', { headers: { Authorization: `Bearer ${accessToken}` }})
     }
@@ -68,11 +72,15 @@ export default function Login()
                     <ul className={classNames("list-div ul")}>
                         <li className={classNames("login-input-list")}>
                             <BsFillPersonFill className={classNames("input-list icon")} />
-                            <input type="text" value={input.email} name="email" onChange={(e)=>{change(e)}} />
+                            <input type="text" value={input.email} name="email" onChange={(e)=>{change(e)}} 
+                                   onKeyDown={(e) => keyDown(e)} 
+                            />
                         </li>
                         <li className={classNames("login-input-list")}>
                             <FaLock className={classNames("input-list icon")} />
-                            <input type="password" value={input.password} name="password" onChange={(e)=>{change(e)}} />
+                            <input type="password" value={input.password} name="password" onChange={(e)=>{change(e)}} 
+                                   onKeyDown={(e) => keyDown(e)}
+                            />
                         </li>
                         <li className={classNames("login-input-list")}>
                             <button onClick={login} className={classNames("input-list login-button")}>로그인</button>
