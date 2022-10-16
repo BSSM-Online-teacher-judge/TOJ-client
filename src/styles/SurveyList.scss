@@ -2,6 +2,20 @@
     width: $width;
 }
 
+.root{
+    padding: 40px 15px;
+}
+
+.Advertisement{
+    width: 1238px;
+    height: 88px;
+    margin: 0 auto;
+    img{
+        width: 1238px;
+        height: 88px;
+    }
+}
+
 .SurveyList{
     border-collapse: collapse;
     width: 1170px;
@@ -52,7 +66,13 @@
         // }
     }
     .name{
-        color: #0076C0;
+        a{
+            color: #0076C0;
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
     }
     .tr{
         &:nth-child(odd){

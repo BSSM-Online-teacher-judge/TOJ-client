@@ -19,12 +19,12 @@ function Header() {
   const logout = () => {
     instance.delete("/auth", {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
       },
     });
     onRemove();
-    sessionStorage.removeItem("access-token");
-    sessionStorage.removeItem("refresh-token");
+    localStorage.removeItem("access-token");
+    localStorage.removeItem("refresh-token");
     nav('/');
   }
 

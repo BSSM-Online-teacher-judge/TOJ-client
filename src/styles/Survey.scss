@@ -1,9 +1,83 @@
 
 $main_blue: #2980b9;
+$main_gray: #585f69;
+
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500&family=Syncopate&display=swap');
+
 
 .survey{
     width: 80%;
     margin: 0 auto;
+    .table{
+        margin-top: 25px;
+        font-size: 13px;
+        .topStat{
+            display: flex;
+            .topStatItem{
+                display: inline-block;
+                flex: 1 1 100.13px;
+                padding: 10px;
+                font-family: "Gothic A1", sans-serif;
+                &.th{
+                    font-weight: bold;
+                    border-bottom: 1px solid #ddd;
+                    &:nth-child(6){
+                        border-right: 1px solid #ddd;
+                    }
+                }
+                &.td{
+                    &:nth-child(6){
+                        border-right: 1px solid #ddd;
+                    }
+                }
+            }
+        }
+    }
+    .title{
+        margin-top: 20px;
+        .name{
+            font-size: 28px;
+            color: $main_gray;
+        }
+        .complete, .incomplete{
+            margin-left: 5px;
+            display: inline-block;
+            font-size: 12px;
+            text-align: center;
+            line-height: 25px;
+            width: 40px;
+            height: 25px;
+            color: white;
+        }
+        .complete{
+            background-color: #5cb85c;
+        }
+        .incomplete{
+            background-color: #d9534f;
+        }
+    }
+    .content{
+        margin-top: 200px;
+        .headline{
+            border-bottom: 1px dotted #e4e9f0;
+        }
+        h3{
+            display: inline-block;
+            // margin: 10px 0 25px 0;
+            margin-top: 20px;
+            padding-bottom: 5px;
+            font-size: 22px;
+            font-weight: normal;
+            color: $main_gray;
+            border-bottom: 2px solid #0076C0;
+        }
+        p{
+            font-size: 16px;
+            margin-top: 25px;
+            color: #555;
+            font-family: 'Open Sans', sans-serif;
+        }
+    }
     .stat{
         height: 50px;
         line-height: 50px;
@@ -12,13 +86,28 @@ $main_blue: #2980b9;
         border-left: 2px solid black;
         padding-right: 50px;
         display: flex;
-        gap: 50px;
+        gap: 40px;
         &:last-child{
             border: 2px solid black;
         }
     }
+    .top{
+        margin-left: 258.276px;
+        display: flex;
+        gap: 40px;
+        .th{
+            width: 30px;
+            text-align: center;
+            font-size: 20px;
+            display: inline-block;
+        }
+    }
     .key{
         width: 100px;
+        text-align: center;
+    }
+    li{
+        width: 30px;
         text-align: center;
     }
 }
@@ -35,3 +124,4 @@ $main_blue: #2980b9;
         margin-top: 20px;
     }
 }
+

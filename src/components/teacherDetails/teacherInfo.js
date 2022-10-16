@@ -25,7 +25,7 @@ function TeacherInfo() {
         setLoading(true);
         const response = await instance.get(`/stats/${param.id}`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         })
         const { humor, tenacity, expertise, fairness, modesty, passion } = response.data.positiveStats;
@@ -69,7 +69,7 @@ function TeacherInfo() {
 
         const commentResponse = await instance.get(`/teacher/comment/${param.id}`, {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         });
         setComment(commentResponse.data);
@@ -91,7 +91,7 @@ function TeacherInfo() {
       },
         {
           headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         }
       );
