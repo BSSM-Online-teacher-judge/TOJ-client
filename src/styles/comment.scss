@@ -1,0 +1,112 @@
+.commentRoot{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .commentDiv{
+        display: block;
+        border: 2px solid lightgray;
+        width: 800px;
+        margin-bottom: 30px;
+        .commentDiv-user{
+            display: block;
+            font-size: 14px;
+            border-bottom: 2px solid lightgray;
+            width: 100%;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            .user-profile{
+                margin-left: 10px;
+                border-radius: 10px;
+                width: 30px;
+                height: 30px;
+            }
+            .user-nickname{
+                margin-left: 20px;
+            }
+            .user-date{
+                margin-left: 20px;
+            }
+        }
+        .commentDiv-content{
+            padding: 10px;
+        }
+        .commentDiv-detail{
+            display: flex;
+            align-items: center;
+            float: right;
+            margin-bottom: 5px;
+            .detail-recomment{
+                &:hover{
+                    cursor: pointer;
+                }
+                margin-right: 10px;
+                font-size: 10px;
+            }
+            .detail-stick{
+                background-color: black;
+                width: 1px;
+                height: 12px;
+            }
+            .detail-option{
+                &:hover{
+                    cursor: pointer;
+                }
+                display: flex;
+                align-items: center;
+                float: right;
+                .option-arrow{
+                    margin-left: 10px;
+                    width:10px;
+                    margin-right: 3px;
+                }
+                .option-text{
+                    font-size: 12px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    .commentRoot-write{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .ck.ck-reset.ck-editor.ck-rounded-corners{
+            width: 800px;
+            .ck.ck-editor__main{
+                height: 100px;
+                .ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+                    height: 100px;
+                }
+                .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
+                    height: 100px;
+                }
+            }
+        }
+        .write-button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            width: 100px;
+            height: 30px;
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 10px;
+        }
+    }
+}
+
+.recommentRoot{
+    display: flex;
+    .recommentRoot-arrow{
+        width: 20px;
+        height: 30px;
+        margin-left: 40px;
+        margin-right: 10px;
+    }
+}

@@ -92,19 +92,18 @@ $main_blue: #2980b9;
         }
     }
     .write{
-        margin-top: 200px;
         display: flex;
         flex-direction: column;
         align-items: center;
         .ck.ck-reset.ck-editor.ck-rounded-corners{
-            width: 700px;
+            width: 800px;
             .ck.ck-editor__main{
-                height: 70px;
+                height: 100px;
                 .ck-blurred.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
-                    height: 70px;
+                    height: 100px;
                 }
                 .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-focused{
-                    height: 70px;
+                    height: 100px;
                 }
             }
         }
@@ -116,6 +115,10 @@ $main_blue: #2980b9;
             margin-bottom: 20px;
             width: 100px;
             height: 30px;
+            background-color: $main_blue;
+            color: white;
+            border: none;
+            border-radius: 10px;
         }
     }
 }

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Header, TeacherTier, Comment } from "../../allFiles";
+import { Header, Comment } from "../../allFiles";
 import "../../styles/teacherInfo.scss";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -135,7 +135,7 @@ function TeacherInfo() {
           comment.map((value) => {
             return (
               <Comment
-                // teacherId={value.teacherId}
+                teacherId={param.id}
                 commentId={value.id}
                 createdAt={value.createdAt}
                 content={value.content}
