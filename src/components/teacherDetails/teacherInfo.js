@@ -81,7 +81,7 @@ function TeacherInfo() {
     setLoading(false);
   }, []);
 
-  console.log(comment);
+  console.log(location.state);
 
   const postComment = async () => {
     try {
@@ -118,6 +118,7 @@ function TeacherInfo() {
           <p className={classNames("teacher explain intro")}>
             {location.state.description}
           </p>
+          <span>{location.state.numberOfLikes}</span>
         </div>
         {/* <TeacherTier name="인성" value="100%" />
         <TeacherTier name="엄" value="70%" /> */}

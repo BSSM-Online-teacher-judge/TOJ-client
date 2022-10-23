@@ -7,12 +7,30 @@ import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
 import { instance } from "../instance";
 import { Link } from "react-router-dom";
+import { css, keyframes } from "@emotion/react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+
+const reSize = keyframes`
+  from{
+    width: 16px;
+    height: 16px;
+  }
+  50%{
+    width: 20px;
+    height: 20px;
+  }
+  to{
+    width: 16px;
+    height: 16px;
+  }
+`;
 
 interface teacher {
   id: number;
   name: string;
   description: string;
   profileImg: string;
+  numberOfLikes: number;
 }
 
 function TeacherList({ item }: { item: teacher }) {
@@ -79,7 +97,11 @@ function TeacherList({ item }: { item: teacher }) {
       )}
       <Link
         to={`/teacher/${item.id}`}
-        state={{ name: item.name, description: item.description }}
+        state={{
+          name: item.name,
+          description: item.description,
+          numberOfLikes: item.numberOfLikes,
+        }}
       >
         <img
           src="./images/face.png"
