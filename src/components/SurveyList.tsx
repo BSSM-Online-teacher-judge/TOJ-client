@@ -20,17 +20,9 @@ function SurveyList() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
-        const response = await instance.get("teacher", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const response = await instance.get("teacher");
         setTeacherList(response.data);
-        const adResponse = await instance.get("/ad", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const adResponse = await instance.get("/ad");
         setAd(
           adResponse.data[Math.floor(Math.random() * adResponse.data.length)]
         );

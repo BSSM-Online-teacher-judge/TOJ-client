@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineCaretDown } from "react-icons/ai";
 import { Recomment } from "../../allFiles";
 import "../../styles/comment.scss"
-import { instance } from "../../instance";
+import {instance} from "../../instance";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useSelector } from "react-redux";
@@ -36,12 +36,7 @@ export default function Comment({
   useEffect(()=>{
     (async()=>{
       try {
-        const response = await instance.get(`/teacher/comment/${commentId}/child`, {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-          },
-        });
-        console.log(response)
+        const response = await instance.get(`/teacher/comment/${commentId}/child`);
         setReComment(response.data);
       } catch (error) {
         console.log(error);
@@ -55,13 +50,7 @@ export default function Comment({
         teacherId: teacherId,
         commentId: commentId,
         content: write,
-      },
-        {
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("access-token")}`,
-          },
-        }
-      );
+      });
     }catch(e){
       console.log(e)
     }

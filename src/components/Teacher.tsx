@@ -24,11 +24,7 @@ function TeacherList({ item }: { item: teacher }) {
   });
   const putTeacher = async () => {
     try {
-      const response = await instance.put(`teacher/${item.id}`, teacherInfo, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
+      const response = await instance.put(`teacher/${item.id}`);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -37,11 +33,7 @@ function TeacherList({ item }: { item: teacher }) {
 
   const deleteTeacher = async () => {
     try {
-      const response = await instance.delete(`teacher/${item.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
+      const response = await instance.delete(`teacher/${item.id}`);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -129,11 +121,7 @@ function Teacher() {
   if (!localStorage.getItem("authority")) {
     const getUserInfo = async () => {
       try {
-        const response = await instance.get("user", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const response = await instance.get("user");
         console.log(response.data.authority);
         localStorage.setItem("authority", response.data.authority);
       } catch (error) {
@@ -169,11 +157,7 @@ function Teacher() {
 
   const postTeacher = async () => {
     try {
-      const response = await instance.post("teacher", teacherInfo, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
+      const response = await instance.post("teacher", teacherInfo);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -183,11 +167,7 @@ function Teacher() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
-        const response = await instance.get("teacher", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const response = await instance.get("teacher");
         setTeacherList(response.data);
       } catch (error) {
         console.log(error);
