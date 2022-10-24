@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ValidateTimeRefreshToken, ValidateTimeAccessToken } from "./jwt/validateTimeToken";
 
-export const authInstance = axios.create({
+export const noTokenInstance = axios.create({
   baseURL: "http://15.164.246.49:8080",
 });
 
@@ -19,9 +19,9 @@ instance.interceptors.request.use(
     async (error)=>{
       const originalRequest = error.config;
       if(ValidateTimeRefreshToken() && !ValidateTimeAccessToken()){
-          const res = await authInstance.put('/auth', {
+          const res = await noTokenInstance.put('/auth', {
               headers:{
-                  "Refresh-Token": `Bearer ${localStorage.getItem("refresh-token")}`
+                  "Refresh-Token": `${localStorage.getItem("refresh-token")}`
               }
           });
           if(res.status === 200){

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import Header from "./Header";
-import { instance } from "../instance";
+import { noTokenInstance } from "../instance";
 import classNames from "classnames";
 import "../styles/Main.scss";
 import { ad } from "../interfaces/ad";
@@ -15,7 +15,7 @@ function Main() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await instance.get("/ad");
+        const response = await noTokenInstance.get("/ad");
         console.log(response);
         setAd(response.data);
       } catch (error) {
