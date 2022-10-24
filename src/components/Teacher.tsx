@@ -9,6 +9,8 @@ import { instance } from "../instance";
 import { Link } from "react-router-dom";
 import { css, keyframes } from "@emotion/react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { RootState } from "../modules";
 
 const reSize = keyframes`
   from{
@@ -34,11 +36,14 @@ interface teacher {
 }
 
 function TeacherList({ item }: { item: teacher }) {
+  const users = useSelector((state: RootState) => state.users);
   const [modal, setModal] = useState(false);
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
     description: "",
+    numberOfLikes: 0,
+    id: 0,
   });
   const putTeacher = async () => {
     try {
@@ -73,7 +78,7 @@ function TeacherList({ item }: { item: teacher }) {
   };
   return (
     <div className={classNames("item")}>
-      {localStorage.getItem("authority") === "ADMIN" && (
+      {users.authority === "ADMIN" && (
         <>
           <TiMinus
             size={28}
@@ -102,6 +107,7 @@ function TeacherList({ item }: { item: teacher }) {
         />
         <h3>{item.name}</h3>
         <section>{item.description}</section>
+        <span>{item.numberOfLikes}</span>
       </Link>
       <Modal
         isOpen={modal}
@@ -138,20 +144,9 @@ function TeacherList({ item }: { item: teacher }) {
 
 function Teacher() {
   const [modal, setModal] = useState(false);
+  const users = useSelector((state: RootState) => state.users);
   const [teacherList, setTeacherList] = useState<teacher[]>([]);
   // const [myInfo, setMyInfo] = useState({});
-  if (!localStorage.getItem("authority")) {
-    const getUserInfo = async () => {
-      try {
-        const response = await instance.get("user");
-        console.log(response.data.authority);
-        localStorage.setItem("authority", response.data.authority);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserInfo();
-  }
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
@@ -160,7 +155,6 @@ function Teacher() {
   Modal.setAppElement("#root");
   const onModal = () => {
     setModal(true);
-    console.log("wow");
   };
   const onChange = (
     e:
@@ -203,7 +197,7 @@ function Teacher() {
       <div className={classNames("Teacher")}>
         <div className={classNames("title")}>
           <h1 className={classNames("title title")}>TEACHER</h1>
-          {localStorage.getItem("authority") === "ADMIN" && (
+          {users.authority === "ADMIN" && (
             <TiPlus
               size={28}
               className={classNames("plus")}
