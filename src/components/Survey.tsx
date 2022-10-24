@@ -35,11 +35,6 @@ function SurveyInput({ statArray }: { statArray: string[] }) {
           stubborn: stat[6],
           authoritarianism: stat[7],
           sua: stat[8],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
         }
       );
       console.log(response);
@@ -121,11 +116,7 @@ function Survey() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await instance.get(`/stats/${param.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const response = await instance.get(`/stats/${param.id}`);
         const { humor, tenacity, expertise, fairness, modesty, passion } =
           response.data.positiveStats;
         const { stubborn, authoritarianism, sua } = response.data.negativeStats;
