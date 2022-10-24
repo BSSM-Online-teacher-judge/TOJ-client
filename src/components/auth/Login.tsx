@@ -41,6 +41,7 @@ export default function Login() {
       const { accessToken, refreshToken, authority } = (
         await noTokenInstance.post("/auth", input)
       ).data;
+      console.log(accessToken);
       const userInfo = (await getUser(accessToken)).data;
       const user = {
         ...userInfo,
@@ -62,7 +63,11 @@ export default function Login() {
   };
 
   const getUser = (accessToken: string) => {
-    return instance.get("/user");
+    return noTokenInstance.get("/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
   };
 
   return (
