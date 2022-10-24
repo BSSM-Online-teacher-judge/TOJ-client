@@ -1,7 +1,7 @@
 import { useState } from "react"
 import classNames from "classnames"
 import { Header } from "../../allFiles"
-import { instance } from "../../instance"
+import {authInstance, instance} from "../../instance"
 import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonFill } from 'react-icons/bs';
 import { FaLock } from 'react-icons/fa'
@@ -39,7 +39,7 @@ export default function Login()
 
     const login = async () => {
         try{
-            const { accessToken, refreshToken } = (await instance.post('/auth', input)).data;
+            const { accessToken, refreshToken } = (await authInstance.post('/auth', input)).data;
             const userInfo = (await getUser(accessToken)).data;
             const user = {
                 ...userInfo,
@@ -59,7 +59,7 @@ export default function Login()
     }
 
     const getUser = (accessToken: string) => {
-        return instance.get('/user', { headers: { Authorization: `Bearer ${accessToken}` }})
+        return authInstance.get('/user', { headers: { Authorization: `Bearer ${accessToken}` }})
     }
 
     return(

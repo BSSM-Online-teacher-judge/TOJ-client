@@ -16,15 +16,10 @@ function Header() {
     dispatch(removeUser());
   };
 
-  const logout = () => {
-    instance.delete("/auth", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-      },
-    });
+  const logout = async () => {
+    await instance.delete("/auth");
     onRemove();
-    localStorage.removeItem("access-token");
-    localStorage.removeItem("refresh-token");
+    localStorage.clear();
     nav('/');
   }
 

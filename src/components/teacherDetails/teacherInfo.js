@@ -23,11 +23,7 @@ function TeacherInfo() {
     const getComment = async () => {
       try {
         setLoading(true);
-        const response = await instance.get(`/stats/${param.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        })
+        const response = await instance.get(`/stats/${param.id}`)
         const { humor, tenacity, expertise, fairness, modesty, passion } = response.data.positiveStats;
         const { stubborn, authoritarianism, sua } = response.data.negativeStats;
 
@@ -67,11 +63,7 @@ function TeacherInfo() {
         setPositiveData(newPositiveStats);
         setNegativeData(newNegativeStats);
 
-        const commentResponse = await instance.get(`/teacher/comment/${param.id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        });
+        const commentResponse = await instance.get(`/teacher/comment/${param.id}`);
         setComment(commentResponse.data);
       } catch (error) {
         console.log(error);
@@ -88,13 +80,7 @@ function TeacherInfo() {
       await instance.post('teacher/comment', {
         teacherId: param.id,
         content: write,
-      },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        }
-      );
+      });
     } catch (error) {
       console.log(error);
     }
