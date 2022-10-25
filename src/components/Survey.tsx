@@ -139,33 +139,39 @@ function Survey() {
   return (
     <div>
       <Header />
-      <div className={classNames("title")}>
-        <span className={classNames("name")}>{teacher.name}</span>
-        {teacher.completed ? (
-          <span className={classNames("third complete")}>성공</span>
-        ) : (
-          <span className={classNames("third incomplete")}>실패</span>
-        )}
-      </div>
-      <div className={classNames("table")}>
-        <div className={classNames("topStat")}>
-          {statArray.map((item) => {
-            return <span className={classNames("topStatItem th")}>{item}</span>;
-          })}
+      <div className={classNames("survey")}>
+        <div className={classNames("title")}>
+          <span className={classNames("name")}>{teacher.name}</span>
+          {teacher.completed ? (
+            <span className={classNames("third complete")}>성공</span>
+          ) : (
+            <span className={classNames("third incomplete")}>실패</span>
+          )}
         </div>
-        <div className={classNames("topStat")}>
-          {presentStat.map((item) => {
-            return <span className={classNames("topStatItem td")}>{item}</span>;
-          })}
+        <div className={classNames("table")}>
+          <div className={classNames("topStat")}>
+            {statArray.map((item) => {
+              return (
+                <span className={classNames("topStatItem th")}>{item}</span>
+              );
+            })}
+          </div>
+          <div className={classNames("topStat")}>
+            {presentStat.map((item) => {
+              return (
+                <span className={classNames("topStatItem td")}>{item}</span>
+              );
+            })}
+          </div>
         </div>
-      </div>
-      <div className={classNames("content")}>
-        <div className={classNames("headline")}>
-          <h3>문제</h3>
-        </div>
-        <p>{teacher.description}</p>
-        <div className={classNames("headline")}>
-          <h3>입력</h3>
+        <div className={classNames("content")}>
+          <div className={classNames("headline")}>
+            <h3>문제</h3>
+          </div>
+          <p>{teacher.description}</p>
+          <div className={classNames("headline")}>
+            <h3>입력</h3>
+          </div>
         </div>
       </div>
       <SurveyInput statArray={statArray} />

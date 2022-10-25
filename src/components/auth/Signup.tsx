@@ -1,9 +1,9 @@
-import '../../styles/Signup.scss'
+import "../../styles/Signup.scss";
 import { Header } from "../../allFiles";
-import classNames from "classnames"
-import { useState } from "react"
+import classNames from "classnames";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {authInstance, instance} from "../../instance";
+import { noTokenInstance, instance } from "../../instance";
 
 interface SignUp {
   email: string;
@@ -70,7 +70,7 @@ export default function Signup() {
       alert("학교 이메일 계정만 사용할 수 있습니다.");
     } else {
       try {
-        await authInstance.post(`/user/send-mail?email=${input.email}`);
+        await noTokenInstance.post(`/user/send-mail?email=${input.email}`);
       } catch (error) {
         console.log(error);
       }
@@ -81,7 +81,7 @@ export default function Signup() {
     if (!/^20[0-9]{7}@bssm.hs.kr$/g.test(input.email)) {
       alert("학교 이메일 계정만 사용할 수 있습니다.");
     } else {
-      const result = await authInstance.delete("/user/check-code", {
+      const result = await noTokenInstance.delete("/user/check-code", {
         data: {
           email: input.email,
           code: code,

@@ -1,30 +1,38 @@
+/** @jsxImportSource @emotion/react */
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import "../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
-import { instance } from "../instance";
+import { instance, noTokenInstance } from "../instance";
 import { Link } from "react-router-dom";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useSelector } from "react-redux";
+import { RootState } from "../modules";
 
 interface teacher {
   id: number;
   name: string;
   description: string;
   profileImg: string;
+  numberOfLikes: number;
+  numberOfSubmit: 1;
+  liked: boolean;
 }
 
-function TeacherList({ item }: { item: teacher }) {
+function TeacherList({ item, index }: { item: teacher; index: number }) {
+  const users = useSelector((state: RootState) => state.users);
   const [modal, setModal] = useState(false);
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
-    description: "",
   });
+
   const putTeacher = async () => {
     try {
-      const response = await instance.put(`teacher/${item.id}`);
+      const response = await instance.put(`teacher/${item.id}`, teacherInfo);
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -55,7 +63,7 @@ function TeacherList({ item }: { item: teacher }) {
   };
   return (
     <div className={classNames("item")}>
-      {localStorage.getItem("authority") === "ADMIN" && (
+      {users.authority === "ADMIN" && (
         <>
           <TiMinus
             size={28}
@@ -71,15 +79,25 @@ function TeacherList({ item }: { item: teacher }) {
       )}
       <Link
         to={`/teacher/${item.id}`}
-        state={{ name: item.name, description: item.description }}
+        state={{
+          name: item.name,
+          description: item.description,
+          numberOfLikes: item.numberOfLikes,
+          profileImg: item.profileImg,
+          index: index,
+        }}
       >
         <img
-          src="./images/face.png"
+          src="/images/face.png"
           alt="선생님 얼굴"
           className={classNames("img")}
         />
         <h3>{item.name}</h3>
         <section>{item.description}</section>
+        <div>
+          {item.liked ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+          <span>{item.numberOfLikes}</span>
+        </div>
       </Link>
       <Modal
         isOpen={modal}
@@ -116,20 +134,10 @@ function TeacherList({ item }: { item: teacher }) {
 
 function Teacher() {
   const [modal, setModal] = useState(false);
+  const users = useSelector((state: RootState) => state.users);
   const [teacherList, setTeacherList] = useState<teacher[]>([]);
+  const [loading, setLoading] = useState(false);
   // const [myInfo, setMyInfo] = useState({});
-  if (!localStorage.getItem("authority")) {
-    const getUserInfo = async () => {
-      try {
-        const response = await instance.get("user");
-        console.log(response.data.authority);
-        localStorage.setItem("authority", response.data.authority);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getUserInfo();
-  }
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
@@ -138,7 +146,6 @@ function Teacher() {
   Modal.setAppElement("#root");
   const onModal = () => {
     setModal(true);
-    console.log("wow");
   };
   const onChange = (
     e:
@@ -167,11 +174,14 @@ function Teacher() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
+        setLoading(true);
         const response = await instance.get("teacher");
         setTeacherList(response.data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
+      setLoading(false);
     };
     getTeacher();
   }, []);
@@ -181,7 +191,7 @@ function Teacher() {
       <div className={classNames("Teacher")}>
         <div className={classNames("title")}>
           <h1 className={classNames("title title")}>TEACHER</h1>
-          {localStorage.getItem("authority") === "ADMIN" && (
+          {users.authority === "ADMIN" && (
             <TiPlus
               size={28}
               className={classNames("plus")}
@@ -190,9 +200,10 @@ function Teacher() {
           )}
         </div>
         <div className={classNames("List")}>
-          {teacherList.map((item) => {
-            return <TeacherList item={item} key={item.id} />;
-          })}
+          {!loading &&
+            teacherList.map((item, index: number) => {
+              return <TeacherList item={item} key={item.id} index={index} />;
+            })}
         </div>
       </div>
       <Modal
