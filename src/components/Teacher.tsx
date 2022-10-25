@@ -28,14 +28,11 @@ function TeacherList({ item, index }: { item: teacher; index: number }) {
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
     name: "",
-    description: "",
-    numberOfLikes: 0,
-    id: 0,
   });
 
   const putTeacher = async () => {
     try {
-      const response = await instance.put(`teacher/${item.id}`);
+      const response = await instance.put(`teacher/${item.id}`, teacherInfo);
       console.log(response);
     } catch (error) {
       console.log(error);

@@ -9,14 +9,11 @@ import "../styles/Main.scss";
 import { ad } from "../interfaces/ad";
 
 function Main() {
-  const user = useSelector((state) => state);
   const [ad, setAd] = useState<ad[]>([]);
-  console.log(user);
   useEffect(() => {
     (async () => {
       try {
         const response = await noTokenInstance.get("/ad");
-        console.log(response);
         setAd(response.data);
       } catch (error) {
         console.log(error);
