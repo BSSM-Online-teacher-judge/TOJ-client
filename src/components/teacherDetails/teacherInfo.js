@@ -199,9 +199,9 @@ function TeacherInfo() {
         <div className={classNames("overall")}>
           <TeacherOverall data={positiveData} color={'category10'} itemKey={'긍정'} />
         </div>
-        <div className={classNames("overall")}>
+        {/* <div className={classNames("overall")}>
           <TeacherOverall data={negativeData} color={'set1'} itemKey={'부정'} />
-        </div>
+        </div> */}
       </div>
       <div className={classNames("teacher comments")}>
         {!loading &&

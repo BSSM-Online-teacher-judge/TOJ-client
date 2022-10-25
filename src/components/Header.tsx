@@ -20,8 +20,8 @@ function Header() {
     await instance.delete("/auth");
     onRemove();
     localStorage.clear();
-    nav('/');
-  }
+    nav("/");
+  };
 
   return (
     <header className="header">

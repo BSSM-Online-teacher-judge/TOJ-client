@@ -24,20 +24,17 @@ function SurveyInput({ statArray }: { statArray: string[] }) {
   const param = useParams();
   const submit = async () => {
     try {
-      const response = await instance.post(
-        `stats/survey/${param.id}`,
-        {
-          humor: stat[0],
-          tenacity: stat[1],
-          expertise: stat[2],
-          fairness: stat[3],
-          modesty: stat[4],
-          passion: stat[5],
-          stubborn: stat[6],
-          authoritarianism: stat[7],
-          sua: stat[8],
-        }
-      );
+      const response = await instance.post(`stats/survey/${param.id}`, {
+        humor: stat[0],
+        tenacity: stat[1],
+        expertise: stat[2],
+        fairness: stat[3],
+        modesty: stat[4],
+        passion: stat[5],
+        // stubborn: stat[6],
+        // authoritarianism: stat[7],
+        // sua: stat[8],
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -109,11 +106,13 @@ function Survey() {
     // "간식 준비성",
     "겸손",
     "열정",
-    "고집",
-    "권위주의",
-    "급발진력",
+    // "고집",
+    // "권위주의",
+    // "급발진력",
   ];
-  const [presentStat, setPresentStat] = useState<number[]>([0,0,0,0,0,0,0,0,0]);
+  const [presentStat, setPresentStat] = useState<number[]>([
+    0, 0, 0, 0, 0, 0,
+  ]);
   useEffect(() => {
     (async () => {
       try {
@@ -128,9 +127,9 @@ function Survey() {
           fairness,
           modesty,
           passion,
-          stubborn,
-          authoritarianism,
-          sua,
+          // stubborn,
+          // authoritarianism,
+          // sua,
         ]);
       } catch (error) {
         console.log(error);
@@ -140,7 +139,7 @@ function Survey() {
   return (
     <div>
       <Header />
-      <SmallAd/>
+      <SmallAd />
       <div className={classNames("survey")}>
         <div className={classNames("title")}>
           <span className={classNames("name")}>{teacher.name}</span>
@@ -161,7 +160,9 @@ function Survey() {
           <div className={classNames("topStat")}>
             {presentStat.map((item) => {
               return (
-                <span className={classNames("topStatItem td")}>{presentStat ? item : 0}</span>
+                <span className={classNames("topStatItem td")}>
+                  {presentStat ? item : 0}
+                </span>
               );
             })}
           </div>

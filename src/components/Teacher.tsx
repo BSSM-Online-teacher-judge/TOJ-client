@@ -22,7 +22,7 @@ interface teacher {
   liked: boolean;
 }
 
-function TeacherList({ item, index }: { item: teacher; index: number }) {
+function TeacherList({ item }: { item: teacher }) {
   const users = useSelector((state: RootState) => state.users);
   const [modal, setModal] = useState(false);
   const [teacherInfo, setTeacherInfo] = useState({
@@ -200,7 +200,7 @@ function Teacher() {
         <div className={classNames("List")}>
           {!loading &&
             teacherList.map((item, index: number) => {
-              return <TeacherList item={item} key={item.id} index={index} />;
+              return <TeacherList item={item} key={item.id} />;
             })}
         </div>
       </div>
