@@ -1,31 +1,16 @@
+/** @jsxImportSource @emotion/react */
 import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import "../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
-import { instance } from "../instance";
+import { instance, noTokenInstance } from "../instance";
 import { Link } from "react-router-dom";
-import { css, keyframes } from "@emotion/react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { RootState } from "../modules";
-
-const reSize = keyframes`
-  from{
-    width: 16px;
-    height: 16px;
-  }
-  50%{
-    width: 20px;
-    height: 20px;
-  }
-  to{
-    width: 16px;
-    height: 16px;
-  }
-`;
 
 interface teacher {
   id: number;
@@ -33,9 +18,11 @@ interface teacher {
   description: string;
   profileImg: string;
   numberOfLikes: number;
+  numberOfSubmit: 1;
+  liked: boolean;
 }
 
-function TeacherList({ item }: { item: teacher }) {
+function TeacherList({ item, index }: { item: teacher; index: number }) {
   const users = useSelector((state: RootState) => state.users);
   const [modal, setModal] = useState(false);
   const [teacherInfo, setTeacherInfo] = useState({
@@ -45,6 +32,7 @@ function TeacherList({ item }: { item: teacher }) {
     numberOfLikes: 0,
     id: 0,
   });
+
   const putTeacher = async () => {
     try {
       const response = await instance.put(`teacher/${item.id}`);
@@ -98,16 +86,21 @@ function TeacherList({ item }: { item: teacher }) {
           name: item.name,
           description: item.description,
           numberOfLikes: item.numberOfLikes,
+          profileImg: item.profileImg,
+          index: index,
         }}
       >
         <img
-          src="./images/face.png"
+          src="/images/face.png"
           alt="선생님 얼굴"
           className={classNames("img")}
         />
         <h3>{item.name}</h3>
         <section>{item.description}</section>
-        <span>{item.numberOfLikes}</span>
+        <div>
+          {item.liked ? <AiFillHeart color="red" /> : <AiOutlineHeart />}
+          <span>{item.numberOfLikes}</span>
+        </div>
       </Link>
       <Modal
         isOpen={modal}
@@ -146,6 +139,7 @@ function Teacher() {
   const [modal, setModal] = useState(false);
   const users = useSelector((state: RootState) => state.users);
   const [teacherList, setTeacherList] = useState<teacher[]>([]);
+  const [loading, setLoading] = useState(false);
   // const [myInfo, setMyInfo] = useState({});
   const [teacherInfo, setTeacherInfo] = useState({
     profileImg: "",
@@ -183,11 +177,14 @@ function Teacher() {
   useEffect(() => {
     const getTeacher = async () => {
       try {
+        setLoading(true);
         const response = await instance.get("teacher");
         setTeacherList(response.data);
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
+      setLoading(false);
     };
     getTeacher();
   }, []);
@@ -206,9 +203,10 @@ function Teacher() {
           )}
         </div>
         <div className={classNames("List")}>
-          {teacherList.map((item) => {
-            return <TeacherList item={item} key={item.id} />;
-          })}
+          {!loading &&
+            teacherList.map((item, index: number) => {
+              return <TeacherList item={item} key={item.id} index={index} />;
+            })}
         </div>
       </div>
       <Modal

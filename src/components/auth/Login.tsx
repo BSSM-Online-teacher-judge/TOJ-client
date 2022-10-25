@@ -53,6 +53,7 @@ export default function Login() {
       window.localStorage.setItem("access-token", accessToken);
       window.localStorage.setItem("refresh-token", refreshToken);
       nav("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

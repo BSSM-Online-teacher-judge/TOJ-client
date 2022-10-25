@@ -1,19 +1,42 @@
+/** @jsxImportSource @emotion/react */
 import classNames from "classnames";
 import { Header, Comment } from "../../allFiles";
 import "../../styles/teacherInfo.scss";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { instance } from "../../instance";
+import { css, keyframes } from "@emotion/react";
 import TeacherOverall from "./TeacherOverall";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 function TeacherInfo() {
+  const reSize = keyframes`
+    from{
+      width: 36px;
+      height: 36px;
+    }
+    50%{
+      width: 42px;
+      height: 42px;
+    }
+    to{
+      width: 36px;
+      height: 36px;
+    }
+  `;
   const param = useParams();
   const location = useLocation();
   const [write, setWrite] = useState();
   const [loading, setLoading] = useState(false);
+  const [like, setLike] = useState({
+    numberOfLikes: 0,
+    liked: false
+  });
+  const [pushed, setPushed] = useState(false);
   const [comment, setComment] = useState([]);
+  const firstPush = useRef(false);
 
   const [positiveData, setPositiveData] = useState([]);
 
@@ -73,8 +96,6 @@ function TeacherInfo() {
     setLoading(false);
   }, []);
 
-  console.log(location.state);
-
   const postComment = async () => {
     try {
       await instance.post('teacher/comment', {
@@ -86,14 +107,47 @@ function TeacherInfo() {
     }
   }
 
+  useEffect(() => {
+    const getTeacher = async () => {
+      try {
+        setLoading(true);
+        const response = await instance.get("/teacher");
+        setLike({
+          liked: response.data[location.state.index].liked,
+          numberOfLikes: response.data[location.state.index].numberOfLikes
+        });
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    };
+    getTeacher();
+  }, [location.state.index, param.id, pushed]);
+
+
+  const pushLike = async () => {
+    try {
+      if (!like.liked) {
+        await instance.post(`/teacher/like/${param.id}`, null);
+        setPushed(true);
+      } else {
+        await instance.delete(`/teacher/like/${param.id}`);
+        setPushed(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    firstPush.current = true;
+  };
+
   return (
     <div className={classNames("teacher")}>
       <Header />
       <div className={classNames("teacher teacherInfo")}>
         <button className={classNames("teacherInfo button")}>평가</button>
         <img
-          src="/images/honggildong.jpg"
-          alt="icon"
+          src='/images/face.png'
+          alt={`${location.state.name}의 사진`}
           className={classNames("teacherInfo picture")}
         />
         <div className={classNames("teacherInfo ability")}></div>
@@ -104,7 +158,31 @@ function TeacherInfo() {
           <p className={classNames("teacher explain intro")}>
             {location.state.description}
           </p>
-          <span>{location.state.numberOfLikes}</span>
+          <div onClick={() => pushLike()} className={classNames("teacher explain like")}>
+            {like.liked ? (
+              <AiFillHeart size={36}
+                css={css`
+                animation: ${firstPush.current
+                    ? css`
+                      ${reSize} 0.15s ease-in-out 1
+                    `
+                    : "none"};
+                color: red;
+              `}
+              />
+            ) : (
+              <AiOutlineHeart size={36}
+                css={css`
+                animation: ${firstPush.current
+                    ? css`
+                      ${reSize} 0.15s ease-in-out 1
+                    `
+                    : "none"};
+              `}
+              />
+            )}
+            <span>{like.numberOfLikes}</span>
+          </div>
         </div>
         {/* <TeacherTier name="인성" value="100%" />
         <TeacherTier name="엄" value="70%" /> */}
