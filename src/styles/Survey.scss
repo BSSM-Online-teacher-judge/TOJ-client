@@ -35,7 +35,6 @@ $main_gray: #585f69;
     }
 }
 .content{
-    margin-top: 200px;
     .headline{
         border-bottom: 1px dotted #e4e9f0;
     }
@@ -57,6 +56,18 @@ $main_gray: #585f69;
     }
 }
 .stat{
+    li{
+        width: 30px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        input{
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    }
     height: 50px;
     line-height: 50px;
     border-top: 2px solid black;

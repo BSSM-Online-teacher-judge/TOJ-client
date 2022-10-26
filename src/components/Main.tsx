@@ -23,22 +23,26 @@ function Main() {
     <div className={classNames("main-root")}>
       <Header />
       <div>
-        <Carousel autoPlay showThumbs={false} interval={5000} infiniteLoop>
-          {ad.map((item) => {
-            return (
-              <div key={item.id} className={classNames("Main-carousel")}>
-                <a href={item.link}>
-                  <div>
-                    <img src={item.img} alt={`${item.advertiser}의 광고`} />
-                  </div>
-                </a>
-              </div>
-            );
-          })}
-        </Carousel>
+        {ad.length && (
+          <Carousel autoPlay showThumbs={false} interval={5000} infiniteLoop autoFocus>
+            {ad.map((item) => {
+              return (
+                <div key={item.id} className={classNames("Main-carousel")}>
+                  <a href={item.link}>
+                    <div>
+                      <img src={item.img} alt={`${item.advertiser}의 광고`} />
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </Carousel>
+        )}
         <div className={classNames("main-intro")}>
           <p className={classNames("main-intro-title")}>Teacher Online Judge</p>
-          <p className={classNames("main-intro-text")}>선생님들 평가하고 선생님에 대한 학생들의 평가를 볼 수 있는 곳입니다.</p>
+          <p className={classNames("main-intro-text")}>
+            선생님들 평가하고 선생님에 대한 학생들의 평가를 볼 수 있는 곳입니다.
+          </p>
         </div>
       </div>
     </div>
