@@ -62,7 +62,7 @@ function Header() {
           >
             단계별로 평가하기
           </Link>
-          <Link to={"/"} className={classNames("header div category item")}>
+          <Link to={"/monthly"} className={classNames("header div category item")}>
             이달의 선생님
           </Link>
           <Link to={"/ranking"} className={classNames("header div category item")}>
@@ -73,9 +73,6 @@ function Header() {
             className={classNames("header div category item")}
           >
             선생님
-          </Link>
-          <Link to={"/"} className={classNames("header div category item")}>
-            질문 추천
           </Link>
         </div>
       </div>

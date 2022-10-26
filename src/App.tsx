@@ -1,4 +1,4 @@
- import React from "react";
+import React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import {
@@ -8,19 +8,20 @@ import {
   Survey,
   Login,
   Signup,
-  SurveyList, Ranking,
+  MonthlyTeacher,
+  SurveyList,
+  Ranking,
 } from "./allFiles";
-import { instance} from "./instance";
+import { instance } from "./instance";
 import { useDispatch } from "react-redux";
 import { setUser, UserInfo } from "./modules/user";
 
 function App() {
-     
   React.useLayoutEffect(() => {
     if (localStorage.getItem("access-token")) {
       (async () => {
         try {
-          const userInfo = (await instance.get('/user')).data;
+          const userInfo = (await instance.get("/user")).data;
           const user = {
             ...userInfo,
             isLogin: true,
@@ -48,6 +49,7 @@ function App() {
       <Route path="/teacher/:id" element={<TeacherInfo />} />
       <Route path="/survey" element={<SurveyList />} />
       <Route path="/survey/:id" element={<Survey />} />
+      <Route path="/monthly" element={<MonthlyTeacher />} />
       <Route path="/ranking" element={<Ranking />} />
     </Routes>
   );

@@ -120,9 +120,17 @@ function TeacherInfo() {
       try {
         setLoading(true);
         const response = await instance.get("/teacher");
+        let index;
+        console.log(response);
+        for (let i = 0; i < response.data.length; i++) {
+          if (response.data[i].id === Number(param.id)) {
+            index = i;
+          }
+        }
+        console.log(index);
         setLike({
-          liked: response.data[location.state.index].liked,
-          numberOfLikes: response.data[location.state.index].numberOfLikes
+          liked: response.data[index].liked,
+          numberOfLikes: response.data[index].numberOfLikes
         });
       } catch (error) {
         console.log(error);
@@ -130,7 +138,7 @@ function TeacherInfo() {
       setLoading(false);
     };
     getTeacher();
-  }, [location.state.index, param.id, pushed]);
+  }, [param.id, pushed]);
 
 
   const pushLike = async () => {

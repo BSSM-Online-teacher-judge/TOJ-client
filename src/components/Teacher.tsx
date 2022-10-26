@@ -12,7 +12,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { RootState } from "../modules";
 
-interface teacher {
+export interface teacher {
   id: number;
   name: string;
   description: string;
@@ -84,7 +84,6 @@ function TeacherList({ item, index }: { item: teacher; index: number }) {
           description: item.description,
           numberOfLikes: item.numberOfLikes,
           profileImg: item.profileImg,
-          index: index,
         }}
       >
         <img
@@ -177,7 +176,6 @@ function Teacher() {
         setLoading(true);
         const response = await instance.get("teacher");
         setTeacherList(response.data);
-        console.log(response);
       } catch (error) {
         console.log(error);
       }

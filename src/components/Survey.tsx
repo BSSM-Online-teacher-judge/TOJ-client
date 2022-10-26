@@ -4,6 +4,7 @@ import { instance } from "../instance";
 import Header from "./Header";
 import "../styles/Survey.scss";
 import { useLocation, useParams } from "react-router-dom";
+import SmallAd from "./ad/SmallAd";
 
 interface teacher {
   id: number;
@@ -112,7 +113,7 @@ function Survey() {
     "권위주의",
     "급발진력",
   ];
-  const [presentStat, setPresentStat] = useState<number[]>([]);
+  const [presentStat, setPresentStat] = useState<number[]>([0,0,0,0,0,0,0,0,0]);
   useEffect(() => {
     (async () => {
       try {
@@ -139,6 +140,7 @@ function Survey() {
   return (
     <div>
       <Header />
+      <SmallAd/>
       <div className={classNames("survey")}>
         <div className={classNames("title")}>
           <span className={classNames("name")}>{teacher.name}</span>
@@ -159,7 +161,7 @@ function Survey() {
           <div className={classNames("topStat")}>
             {presentStat.map((item) => {
               return (
-                <span className={classNames("topStatItem td")}>{item}</span>
+                <span className={classNames("topStatItem td")}>{presentStat ? item : 0}</span>
               );
             })}
           </div>

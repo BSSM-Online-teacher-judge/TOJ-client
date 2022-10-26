@@ -65,7 +65,7 @@ export default function Comment({
             alt="icon"
             className={classNames("user-profile")}
           />
-          <span className={classNames("user-nickname")}>{users.nickName}</span>
+          <span className={classNames("user-nickname")}>ㅇㅇ</span>
           <span className={classNames("user-date")}>{date}</span>
         </div>
         <p

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Header } from "../allFiles";
 import { instance } from "../instance";
 import "../styles/SurveyList.scss";
-import { ad } from "../interfaces/ad";
+import SmallAd from "./ad/SmallAd";
 
 interface teacher {
   id: number;
@@ -16,14 +16,9 @@ interface teacher {
 
 function SurveyList() {
   const [teacherList, setTeacherList] = useState([]);
-  const [ad, setAd] = useState<ad>();
   useEffect(() => {
     const getTeacher = async () => {
       try {
-        const adResponse = await instance.get("/ad");
-        setAd(
-          adResponse.data[Math.floor(Math.random() * adResponse.data.length)]
-        );
         const response = await instance.get("teacher", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -39,12 +34,8 @@ function SurveyList() {
   return (
     <div>
       <Header />
+      <SmallAd/>
       <div className="root">
-        <div className={classNames("Advertisement")}>
-          <a href={ad?.link}>
-            <img src={ad?.img} alt={`${ad?.advertiser}의 광고`} />
-          </a>
-        </div>
         <table className={classNames("SurveyList")}>
           <thead>
             <th className={classNames("th first")}>문제</th>
