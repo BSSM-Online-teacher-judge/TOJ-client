@@ -116,7 +116,7 @@ function Survey() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await instance.get(`/stats/${param.id}`);
+        const response = await instance.get(`/stats/${param.id}` );
         const { humor, tenacity, expertise, fairness, modesty, passion } =
           response.data.positiveStats;
         const { stubborn, authoritarianism, sua } = response.data.negativeStats;
