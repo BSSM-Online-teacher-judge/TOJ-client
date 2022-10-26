@@ -21,6 +21,7 @@ function Header() {
     onRemove();
     localStorage.clear();
     nav('/');
+    window.location.reload();
   }
 
   return (
@@ -64,7 +65,7 @@ function Header() {
           <Link to={"/"} className={classNames("header div category item")}>
             이달의 선생님
           </Link>
-          <Link to={"/"} className={classNames("header div category item")}>
+          <Link to={"/ranking"} className={classNames("header div category item")}>
             랭킹
           </Link>
           <Link
