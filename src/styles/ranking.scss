@@ -1,0 +1,65 @@
+@mixin width($width) {
+  width: $width;
+}
+
+.root{
+  padding: 40px 15px;
+}
+
+.Advertisement{
+  width: 1238px;
+  height: 88px;
+  margin: 0 auto;
+  img{
+    width: 1238px;
+    height: 88px;
+  }
+}
+
+.RankingList{
+  border-collapse: collapse;
+  width: 1170px;
+  margin: 40px auto;
+  color: #333333;
+  vertical-align: middle;
+  .th-first, .td-first{
+    @include width(10%);
+  }
+  .th-second, .td-second{
+    @include width(30%);
+  }
+  .th-third, .td-third{
+    @include width(54%);
+  }
+  .th-fourth, .td-fourth{
+    @include width(70%);
+  }
+  .allth{
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    margin: 0;
+  }
+  .alltd{
+    border: 1px solid #ddd;
+    padding: 8px;
+    // &.second{
+    //     color: #0076C0;
+    // }
+  }
+  .name{
+    a{
+      color: #0076C0;
+      text-decoration: none;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+  .tr{
+    &:nth-child(odd){
+      background-color: #F9F9F9;
+    }
+    margin: 0;
+  }
+}

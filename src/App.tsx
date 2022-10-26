@@ -1,6 +1,6 @@
-import React from "react";
+ import React from "react";
 import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import {
   Main,
   TeacherInfo,
@@ -8,28 +8,24 @@ import {
   Survey,
   Login,
   Signup,
-  SurveyList,
+  SurveyList, Ranking,
 } from "./allFiles";
-import { instance } from "./instance";
+import { instance} from "./instance";
 import { useDispatch } from "react-redux";
 import { setUser, UserInfo } from "./modules/user";
 
 function App() {
-  const nav = useNavigate();
-
-  React.useEffect(() => {
+     
+  React.useLayoutEffect(() => {
     if (localStorage.getItem("access-token")) {
       (async () => {
         try {
-          const userInfo = (
-            await getUser(localStorage.getItem("access-token"))
-          ).data;
+          const userInfo = (await instance.get('/user')).data;
           const user = {
             ...userInfo,
             isLogin: true,
           };
           onInsert(user);
-          // nav('/');
         } catch (error) {
           console.log(error);
         }
@@ -43,12 +39,6 @@ function App() {
     dispatch(setUser(userInfo));
   };
 
-  const getUser = (accessToken: string | null) => {
-    return instance.get("/user", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-  };
-
   return (
     <Routes>
       <Route path="/" element={<Main />} />
@@ -58,6 +48,7 @@ function App() {
       <Route path="/teacher/:id" element={<TeacherInfo />} />
       <Route path="/survey" element={<SurveyList />} />
       <Route path="/survey/:id" element={<Survey />} />
+      <Route path="/ranking" element={<Ranking />} />
     </Routes>
   );
 }
