@@ -2,6 +2,16 @@
     height: $height;
     border-radius: 40px 40px 0 0;
     background-color: $color;
+    text-align: center;
+    div{
+        position: relative;
+        top: 25px;
+    }
+    img{
+        width: 250px;
+        height: 250px;
+        border-radius: 40px;
+    }
 }
 
 .Monthly{
@@ -15,13 +25,13 @@
             background-color: black;
             width: 300px;
             &.first{
-                @include item(450px, rgb(236, 154, 0))
+                @include item(500px, rgb(236, 154, 0))
             }
             &.second{
                 @include item(600px, rgb(0, 180, 252))
             }
             &.third{
-                @include item(300px, rgb(173, 86, 0))
+                @include item(400px, rgb(173, 86, 0))
             }
         }
     }

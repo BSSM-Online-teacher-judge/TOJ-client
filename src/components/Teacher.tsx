@@ -12,7 +12,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { RootState } from "../modules";
 
-interface teacher {
+export interface teacher {
   id: number;
   name: string;
   description: string;
