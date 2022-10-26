@@ -18,7 +18,7 @@ export default function Recomment({ content, createdAt })
                 <div className={classNames("commentRoot commentDiv")}>
                     <div className={classNames("commentDiv-user")}>
                         <img src="/images/profileTest.png" alt="icon" className={classNames("user-profile")} />
-                        <span className={classNames("user-nickname")}>{users.nickName}</span>
+                        <span className={classNames("user-nickname")}>ㅇㅇ</span>
                         <span className={classNames("user-date")}>{date}</span>
                     </div>
                     <p
