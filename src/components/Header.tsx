@@ -74,9 +74,6 @@ function Header() {
           >
             선생님
           </Link>
-          <Link to={"/"} className={classNames("header div category item")}>
-            질문 추천
-          </Link>
         </div>
       </div>
     </header>
