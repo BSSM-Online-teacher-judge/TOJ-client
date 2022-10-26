@@ -9,6 +9,7 @@ import {
   Login,
   Signup,
   SurveyList,
+  MonthlyTeacher,
 } from "./allFiles";
 import { instance } from "./instance";
 import { useDispatch } from "react-redux";
@@ -21,9 +22,8 @@ function App() {
     if (localStorage.getItem("access-token")) {
       (async () => {
         try {
-          const userInfo = (
-            await getUser(localStorage.getItem("access-token"))
-          ).data;
+          const userInfo = (await getUser(localStorage.getItem("access-token")))
+            .data;
           const user = {
             ...userInfo,
             isLogin: true,
@@ -58,6 +58,7 @@ function App() {
       <Route path="/teacher/:id" element={<TeacherInfo />} />
       <Route path="/survey" element={<SurveyList />} />
       <Route path="/survey/:id" element={<Survey />} />
+      <Route path="/monthly" element={<MonthlyTeacher />} />
     </Routes>
   );
 }
