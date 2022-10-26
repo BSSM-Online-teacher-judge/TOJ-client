@@ -5,7 +5,7 @@ import "../../styles/teacherInfo.scss";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useEffect, useState, useRef } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import { instance } from "../../instance";
 import { css, keyframes } from "@emotion/react";
 import TeacherOverall from "./TeacherOverall";
@@ -28,6 +28,7 @@ function TeacherInfo() {
   `;
   const param = useParams();
   const location = useLocation();
+  const nav = useNavigate();
   const [write, setWrite] = useState();
   const [loading, setLoading] = useState(false);
   const [like, setLike] = useState({
@@ -41,51 +42,12 @@ function TeacherInfo() {
   const [positiveData, setPositiveData] = useState([]);
 
   const [negativeData, setNegativeData] = useState([]);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     const getComment = async () => {
       try {
         setLoading(true);
-        const response = await instance.get(`/stats/${param.id}`)
-        const { humor, tenacity, expertise, fairness, modesty, passion } = response.data.positiveStats;
-        const { stubborn, authoritarianism, sua } = response.data.negativeStats;
-
-        const positiveStatsList = [humor, tenacity, expertise, fairness, modesty, passion];
-        const negativeStatsList = [stubborn, authoritarianism, sua];
-
-        const newPositiveStats = [{
-          stat: '유머',
-          긍정: positiveStatsList[0],
-        }, {
-          stat: '인성',
-          긍정: positiveStatsList[1],
-        }, {
-          stat: '전문성',
-          긍정: positiveStatsList[2],
-        }, {
-          stat: '공정성',
-          긍정: positiveStatsList[3],
-        }, {
-          stat: '겸손',
-          긍정: positiveStatsList[4],
-        }, {
-          stat: '열정',
-          긍정: positiveStatsList[5],
-        }];
-        const newNegativeStats = [{
-          stat: '고집',
-          부정: negativeStatsList[0],
-        }, {
-          stat: '권위주의',
-          부정: negativeStatsList[1],
-        }, {
-          stat: '급발진력',
-          부정: negativeStatsList[2],
-        },]
-
-        setPositiveData(newPositiveStats);
-        setNegativeData(newNegativeStats);
-
         const commentResponse = await instance.get(`/teacher/comment/${param.id}`);
         setComment(commentResponse.data);
       } catch (error) {
@@ -94,7 +56,52 @@ function TeacherInfo() {
     }
     getComment();
     setLoading(false);
-  }, []);
+  }, [reload]);
+
+  useEffect(()=>{
+    const getStats = async () => {
+      const response = await instance.get(`/stats/${param.id}`)
+      const { humor, tenacity, expertise, fairness, modesty, passion } = response.data.positiveStats;
+      const { stubborn, authoritarianism, sua } = response.data.negativeStats;
+
+      const positiveStatsList = [humor, tenacity, expertise, fairness, modesty, passion];
+      const negativeStatsList = [stubborn, authoritarianism, sua];
+
+      const newPositiveStats = [{
+        stat: '유머',
+        긍정: positiveStatsList[0],
+      }, {
+        stat: '인성',
+        긍정: positiveStatsList[1],
+      }, {
+        stat: '전문성',
+        긍정: positiveStatsList[2],
+      }, {
+        stat: '공정성',
+        긍정: positiveStatsList[3],
+      }, {
+        stat: '겸손',
+        긍정: positiveStatsList[4],
+      }, {
+        stat: '열정',
+        긍정: positiveStatsList[5],
+      }];
+      const newNegativeStats = [{
+        stat: '고집',
+        부정: negativeStatsList[0],
+      }, {
+        stat: '권위주의',
+        부정: negativeStatsList[1],
+      }, {
+        stat: '급발진력',
+        부정: negativeStatsList[2],
+      },]
+
+      setPositiveData(newPositiveStats);
+      setNegativeData(newNegativeStats);
+    }
+    getStats()
+  }, [])
 
   const postComment = async () => {
     try {
@@ -102,6 +109,7 @@ function TeacherInfo() {
         teacherId: param.id,
         content: write,
       });
+      setWrite("")
     } catch (error) {
       console.log(error);
     }
@@ -144,7 +152,7 @@ function TeacherInfo() {
     <div className={classNames("teacher")}>
       <Header />
       <div className={classNames("teacher teacherInfo")}>
-        <button className={classNames("teacherInfo button")}>평가</button>
+        <button className={classNames("teacherInfo button")} onClick={()=> nav(`/survey/${param.id}`)}>평가</button>
         <img
           src='/images/face.png'
           alt={`${location.state.name}의 사진`}
@@ -219,7 +227,10 @@ function TeacherInfo() {
             setWrite(data);
           }}
         />
-        <button className={classNames("write button")} onClick={() => postComment()}>작성</button>
+        <button className={classNames("write button")} onClick={async () => {
+          await postComment()
+          setReload((prev) => !prev)
+        }}>작성</button>
       </div>
     </div>
   );

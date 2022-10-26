@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import classNames from "classnames";
 import { Header } from "../../allFiles";
-import { noTokenInstance, instance } from "../../instance";
+import { noTokenInstance } from "../../instance";
 import { Link, useNavigate } from "react-router-dom";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaLock } from "react-icons/fa";
@@ -36,12 +36,13 @@ export default function Login() {
     setInput(newInput);
   };
 
+
   const login = async () => {
     try {
       const { accessToken, refreshToken, authority } = (
         await noTokenInstance.post("/auth", input)
       ).data;
-      console.log(accessToken);
+      console.log(accessToken, refreshToken);
       const userInfo = (await getUser(accessToken)).data;
       const user = {
         ...userInfo,
@@ -50,14 +51,14 @@ export default function Login() {
       };
       console.log(user);
       onInsert(user);
-      window.localStorage.setItem("access-token", accessToken);
-      window.localStorage.setItem("refresh-token", refreshToken);
+      localStorage.setItem("access-token", accessToken);
+      localStorage.setItem("refresh-token", refreshToken);
       nav("/");
-      window.location.reload();
+
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   const keyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") login();
