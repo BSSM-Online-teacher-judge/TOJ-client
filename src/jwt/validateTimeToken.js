@@ -6,12 +6,7 @@ export function ValidateTimeAccessToken(){
     const exp = (new Date(decodePayload.exp* 1000).getTime());
     const now = new Date().getTime();
 
-    if(now < exp){
-        return true;
-    }
-    else{
-        return false;
-    }
+    return now < exp;
 }
 
 export function ValidateTimeRefreshToken(){
@@ -20,10 +15,5 @@ export function ValidateTimeRefreshToken(){
     const exp = (new Date(decodePayload.exp* 1000).getTime());
     const now = new Date().getTime();
 
-    if(now < exp){
-        return true;
-    }
-    else{
-        return false;
-    }
+    return now < exp;
 }

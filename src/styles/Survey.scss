@@ -68,6 +68,10 @@ $main_gray: #585f69;
     &:last-child{
         border: 2px solid black;
     }
+    li{
+        width: 30px;
+        text-align: center;
+    }
 }
 .top{
     margin-left: 258.276px;
@@ -82,10 +86,6 @@ $main_gray: #585f69;
 }
 .key{
     width: 100px;
-    text-align: center;
-}
-li{
-    width: 30px;
     text-align: center;
 }
 

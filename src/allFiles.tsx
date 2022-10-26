@@ -10,6 +10,7 @@ import SurveyList from "./components/SurveyList";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import MonthlyTeacher from "./components/MonthlyTeacher";
+import Ranking from "./components/ranking/ranking";
 
 export {
   TeacherInfo,
@@ -24,4 +25,5 @@ export {
   Login,
   Signup,
   MonthlyTeacher,
+  Ranking
 };
