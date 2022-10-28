@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { noTokenInstance } from "../../instance";
 
-import { ad } from "../../interfaces/ad";
+import { AdType } from "../../interfaces/interfaces";
 
 function SmallAd() {
-  const [ad, setAd] = useState<ad>();
+  const [ad, setAd] = useState<AdType>();
   useEffect(() => {
     const getAd = async () => {
       try {

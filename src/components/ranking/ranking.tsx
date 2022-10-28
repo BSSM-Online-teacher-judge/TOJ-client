@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { instance } from "../../instance";
-import { ad } from "../../interfaces/ad";
+import { AdType } from "../../interfaces/interfaces";
 import "../../styles/ranking.scss";
 import SmallAd from "../ad/SmallAd";
 

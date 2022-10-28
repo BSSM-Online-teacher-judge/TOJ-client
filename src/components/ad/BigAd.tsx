@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { noTokenInstance } from "../../instance";
 import classNames from "classnames";
 import "../../styles/Main.scss";
-import { ad } from "../../interfaces/ad";
+import { AdType } from "../../interfaces/interfaces";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
 function BigAd() {
-  const [ad, setAd] = useState<ad[]>([]);
+  const [ad, setAd] = useState<AdType[]>([]);
   useEffect(() => {
     (async () => {
       try {
