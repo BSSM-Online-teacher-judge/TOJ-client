@@ -3,7 +3,7 @@ import Header from "./Header";
 import "../styles/MonthlyTeacher.scss";
 import classNames from "classnames";
 import { noTokenInstance } from "../instance";
-import { teacher } from "./Teacher";
+import { teacher } from "./teacher/Teacher";
 
 function MonthlyTeacher() {
   const [teacher, setTeacher] = useState<teacher[]>([]);
@@ -26,7 +26,7 @@ function MonthlyTeacher() {
         {teacher.length && (
           <div className={classNames("rank")}>
             <div className={classNames("item first")}>
-              <div className={classNames('div')}>
+              <div className={classNames("div")}>
                 <img
                   src="./images/face.png"
                   alt={`${teacher[1].name}의 사진`}
@@ -36,7 +36,7 @@ function MonthlyTeacher() {
               </div>
             </div>
             <div className={classNames("item second")}>
-              <div className={classNames('div')}>
+              <div className={classNames("div")}>
                 <img
                   src="./images/face.png"
                   alt={`${teacher[0].name}의 사진`}
@@ -46,7 +46,7 @@ function MonthlyTeacher() {
               </div>
             </div>
             <div className={classNames("item third")}>
-              <div className={classNames('div')}>
+              <div className={classNames("div")}>
                 <img
                   src="./images/face.png"
                   alt={`${teacher[2].name}의 사진`}

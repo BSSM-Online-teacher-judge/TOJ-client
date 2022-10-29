@@ -1,8 +1,6 @@
-import TeacherInfo from "./components/teacherDetails/teacherInfo";
+import TeacherInfo from "./components/teacher/teacherInfo";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import Teacher from "./components/Teacher";
-import TeacherTier from "./components/teacherDetails/TeacherTier";
 import Comment from "./components/comment/comment";
 import Recomment from "./components/comment/Recomment";
 import Survey from "./components/Survey";
@@ -11,13 +9,13 @@ import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import MonthlyTeacher from "./components/MonthlyTeacher";
 import Ranking from "./components/ranking/ranking";
+import Teacher from "./components/teacher/Teacher";
 
 export {
   TeacherInfo,
   Header,
   Main,
   Teacher,
-  TeacherTier,
   Comment,
   Recomment,
   Survey,
@@ -25,5 +23,5 @@ export {
   Login,
   Signup,
   MonthlyTeacher,
-  Ranking
+  Ranking,
 };

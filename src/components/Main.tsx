@@ -1,43 +1,15 @@
-import React, { useEffect, useState } from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+import React from "react";
 import Header from "./Header";
-import { noTokenInstance } from "../instance";
 import classNames from "classnames";
 import "../styles/Main.scss";
-import { ad } from "../interfaces/ad";
+import BigAd from "./ad/BigAd";
 
 function Main() {
-  const [ad, setAd] = useState<ad[]>([]);
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await noTokenInstance.get("/ad");
-        setAd(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
   return (
     <div className={classNames("main-root")}>
       <Header />
       <div>
-        {ad.length && (
-          <Carousel autoPlay showThumbs={false} interval={5000} infiniteLoop autoFocus>
-            {ad.map((item) => {
-              return (
-                <div key={item.id} className={classNames("Main-carousel")}>
-                  <a href={item.link}>
-                    <div>
-                      <img src={item.img} alt={`${item.advertiser}의 광고`} />
-                    </div>
-                  </a>
-                </div>
-              );
-            })}
-          </Carousel>
-        )}
+        <BigAd />
         <div className={classNames("main-intro")}>
           <p className={classNames("main-intro-title")}>Teacher Online Judge</p>
           <p className={classNames("main-intro-text")}>

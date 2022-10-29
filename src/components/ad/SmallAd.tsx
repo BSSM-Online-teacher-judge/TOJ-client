@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { instance } from "../../instance";
+import { noTokenInstance } from "../../instance";
 
-import { ad } from "../../interfaces/ad";
+import { AdType } from "../../interfaces/interfaces";
 
 function SmallAd() {
-  const [ad, setAd] = useState<ad>();
+  const [ad, setAd] = useState<AdType>();
   useEffect(() => {
     const getAd = async () => {
       try {
-        const adResponse = await instance.get("/ad");
+        const adResponse = await noTokenInstance.get("/ad?size=SMALL");
         setAd(
           adResponse.data[Math.floor(Math.random() * adResponse.data.length)]
         );

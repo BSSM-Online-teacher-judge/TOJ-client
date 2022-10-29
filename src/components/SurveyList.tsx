@@ -34,7 +34,7 @@ function SurveyList() {
   return (
     <div>
       <Header />
-      <SmallAd/>
+      <SmallAd />
       <div className="root">
         <table className={classNames("SurveyList")}>
           <thead>

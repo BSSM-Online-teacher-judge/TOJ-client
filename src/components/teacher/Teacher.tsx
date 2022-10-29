@@ -1,16 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import Header from "./Header";
-import "../styles/Teacher.scss";
+import Header from "../Header";
+import "../../styles/Teacher.scss";
 import { TiPlus, TiMinus } from "react-icons/ti";
 import { FiTool } from "react-icons/fi";
 import Modal from "react-modal";
-import { instance, noTokenInstance } from "../instance";
+import { instance, noTokenInstance } from "../../instance";
 import { Link } from "react-router-dom";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { RootState } from "../modules";
+import { RootState } from "../../modules";
 
 export interface teacher {
   id: number;
@@ -80,10 +80,7 @@ function TeacherList({ item, index }: { item: teacher; index: number }) {
       <Link
         to={`/teacher/${item.id}`}
         state={{
-          name: item.name,
-          description: item.description,
-          numberOfLikes: item.numberOfLikes,
-          profileImg: item.profileImg,
+          teacher: item,
         }}
       >
         <img
